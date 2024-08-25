@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
+   <children>
+      <Line endX="877.0999755859375" endY="3.814697265625E-6" layoutX="124.0" layoutY="70.0" startX="-123.99999237060547" startY="3.814697265625E-6" stroke="#e0e0e0" />
+      <Label layoutX="50.0" layoutY="115.0" prefHeight="35.0" prefWidth="116.0" text="Products" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="24.0" />
+         </font>
+      </Label>
+      <Group layoutX="225.0" layoutY="115.0">
+         <children>
+            <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
+            <TextField fx:id="txtSearch" layoutX="36.0" onKeyPressed="#txtSearchTyped" onKeyReleased="#txtSearchTyped" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="200.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+               <font>
+                  <Font name="Poppins Regular" size="14.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <JFXButton layoutX="850.0" layoutY="115.0" onAction="#btnAddOnAction" prefHeight="40.0" prefWidth="115.0" style="-fx-background-radius: 40; -fx-background-color: #8946A6;" text="    Add" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="879.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/plus.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblProducts" layoutX="50.0" layoutY="200.0" prefHeight="498.0" prefWidth="915.0" style="-fx-background-color: white; -fx-font-size: 14; -fx-fixed-cell-size: 40;" stylesheets="@../css/CustomerViewStyles.css">
+        <columns>
+          <TableColumn fx:id="colItemCode" editable="false" prefWidth="111.46667098999023" resizable="false" style="-fx-background-color: #F4F5F7;" text="Item Code" />
+          <TableColumn fx:id="colDsc" editable="false" prefWidth="427.7333297729492" resizable="false" style="-fx-background-color: #F4F5F7;" text="Description" />
+            <TableColumn fx:id="colPackSize" editable="false" prefWidth="130.13339233398438" resizable="false" style="-fx-background-color: #F4F5F7;" text="Pack Size" />
+            <TableColumn fx:id="colUnitPrice" editable="false" prefWidth="137.33334350585938" resizable="false" style="-fx-background-color: #F4F5F7; -fx-text-fill: red;" text="Unit Price" />
+            <TableColumn fx:id="colQtnOnHand" editable="false" prefWidth="109.06661987304688" resizable="false" style="-fx-background-color: #F4F5F7;" text="Qty On Hand" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
