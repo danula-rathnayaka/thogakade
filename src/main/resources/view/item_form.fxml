@@ -9,21 +9,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../css/CustomerViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
    <children>
       <Line endX="877.0999755859375" endY="3.814697265625E-6" layoutX="124.0" layoutY="70.0" startX="-123.99999237060547" startY="3.814697265625E-6" stroke="#e0e0e0" />
-      <Label layoutX="50.0" layoutY="115.0" prefHeight="35.0" prefWidth="116.0" text="Products" textFill="#6a6a6a">
+      <Label layoutX="50.0" layoutY="115.0" prefHeight="35.0" prefWidth="110.0" text="Products" textFill="#6a6a6a">
          <font>
             <Font name="Poppins SemiBold" size="24.0" />
          </font>
       </Label>
-      <Group layoutX="225.0" layoutY="115.0">
+      <Group layoutX="180.0" layoutY="115.0">
          <children>
             <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
-            <TextField fx:id="txtSearch" layoutX="36.0" onKeyPressed="#txtSearchTyped" onKeyReleased="#txtSearchTyped" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="200.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+            <TextField fx:id="txtSearch" layoutX="36.0" onKeyPressed="#txtSearchTyped" onKeyReleased="#txtSearchTyped" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="300.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
@@ -35,24 +36,94 @@
             </ImageView>
          </children>
       </Group>
-      <JFXButton layoutX="850.0" layoutY="115.0" onAction="#btnAddOnAction" prefHeight="40.0" prefWidth="115.0" style="-fx-background-radius: 40; -fx-background-color: #8946A6;" text="    Add" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="879.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/plus.png" />
-         </image>
-      </ImageView>
-      <TableView fx:id="tblProducts" layoutX="50.0" layoutY="200.0" prefHeight="498.0" prefWidth="915.0" style="-fx-background-color: white; -fx-font-size: 14; -fx-fixed-cell-size: 40;" stylesheets="@../css/CustomerViewStyles.css">
+      <Group layoutX="850.0" layoutY="115.0" />
+      <TableView fx:id="tblProducts" layoutX="50.0" layoutY="200.0" prefHeight="475.0" prefWidth="915.0">
         <columns>
-          <TableColumn fx:id="colItemCode" editable="false" prefWidth="111.46667098999023" resizable="false" style="-fx-background-color: #F4F5F7;" text="Item Code" />
-          <TableColumn fx:id="colDsc" editable="false" prefWidth="427.7333297729492" resizable="false" style="-fx-background-color: #F4F5F7;" text="Description" />
-            <TableColumn fx:id="colPackSize" editable="false" prefWidth="130.13339233398438" resizable="false" style="-fx-background-color: #F4F5F7;" text="Pack Size" />
-            <TableColumn fx:id="colUnitPrice" editable="false" prefWidth="137.33334350585938" resizable="false" style="-fx-background-color: #F4F5F7; -fx-text-fill: red;" text="Unit Price" />
-            <TableColumn fx:id="colQtnOnHand" editable="false" prefWidth="109.06661987304688" resizable="false" style="-fx-background-color: #F4F5F7;" text="Qty On Hand" />
+          <TableColumn fx:id="colItemCode" editable="false" prefWidth="169.06669998168945" resizable="false" styleClass="table-row-cell" text="PRODUCT CODE" />
+          <TableColumn fx:id="colDsc" editable="false" prefWidth="269.06666564941406" resizable="false" styleClass="table-row-cell" text="DESCRIPTION" />
+            <TableColumn fx:id="colPackSize" editable="false" prefWidth="184.5333251953125" resizable="false" styleClass="table-row-cell" text="PACK SIZE" />
+            <TableColumn fx:id="colUnitPrice" editable="false" prefWidth="148.7999267578125" resizable="false" styleClass="table-row-cell" text="UNIT PRICE" />
+            <TableColumn fx:id="colQtnOnHand" editable="false" prefWidth="151.2000732421875" resizable="false" styleClass="table-row-cell" text="QTY ON HAND" />
         </columns>
       </TableView>
+      <HBox alignment="TOP_RIGHT" layoutX="628.0" layoutY="115.0" prefHeight="40.0" prefWidth="333.0" spacing="15.0">
+         <children>
+            <Group>
+               <children>
+                  <JFXButton onAction="#btnDeleteOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="       Delete" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins SemiBold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/delete.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+            <Group layoutX="10.0" layoutY="10.0">
+               <children>
+                  <JFXButton onAction="#btnEditOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="      Edit" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins SemiBold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="25.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/edit.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+            <Group layoutX="125.0" layoutY="10.0">
+               <children>
+                  <JFXButton onAction="#btnAddOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-background-color: #8946A6;" text="     Add" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins SemiBold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="22.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/plus.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+         </children>
+      </HBox>
+      <Group layoutX="459.0" layoutY="690.0">
+         <children>
+            <JFXButton onAction="#btnReloadOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #8946A6; -fx-background-radius: 100; -fx-border-radius: 100;" text="      Reload" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="16.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/refresh.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/thogakade_logo.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="735.0" layoutY="13.0">
+         <children>
+            <ImageView fitHeight="45.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/user.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblUser" layoutX="57.0" layoutY="9.0" text="Admin" textFill="#6a6a6a">
+               <font>
+                  <Font name="Poppins SemiBold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
    </children>
 </AnchorPane>
