@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../css/CustomerViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/CustomerViewStyles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemDashboardController">
    <children>
       <Line endX="877.0999755859375" endY="3.814697265625E-6" layoutX="124.0" layoutY="70.0" startX="-123.99999237060547" startY="3.814697265625E-6" stroke="#e0e0e0" />
       <Label layoutX="50.0" layoutY="115.0" prefHeight="35.0" prefWidth="110.0" text="Products" textFill="#6a6a6a">
@@ -23,15 +23,21 @@
       </Label>
       <Group layoutX="180.0" layoutY="115.0">
          <children>
+            <Label layoutX="250.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
             <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
-            <TextField fx:id="txtSearch" layoutX="36.0" onKeyPressed="#txtSearchTyped" onKeyReleased="#txtSearchTyped" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="300.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+            <ImageView fx:id="imgCancelSearch" disable="true" fitHeight="22.0" fitWidth="24.0" layoutX="293.0" layoutY="9.0" onMouseClicked="#imgCancelSearchOnAction" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../img/cancel.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="txtSearch" layoutX="36.0" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </TextField>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/search.png" />
+                  <Image url="@../../img/search.png" />
                </image>
             </ImageView>
          </children>
@@ -48,32 +54,36 @@
       </TableView>
       <HBox alignment="TOP_RIGHT" layoutX="628.0" layoutY="115.0" prefHeight="40.0" prefWidth="333.0" spacing="15.0">
          <children>
-            <Group>
+            <Group fx:id="btnEditBtnDelete" visible="false">
                <children>
-                  <JFXButton onAction="#btnDeleteOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="       Delete" textFill="#6a6a6a">
-                     <font>
-                        <Font name="Poppins SemiBold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/delete.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
-            <Group layoutX="10.0" layoutY="10.0">
-               <children>
-                  <JFXButton onAction="#btnEditOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="      Edit" textFill="#6a6a6a">
-                     <font>
-                        <Font name="Poppins SemiBold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="25.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/edit.png" />
-                     </image>
-                  </ImageView>
+                  <Group>
+                     <children>
+                        <JFXButton fx:id="btnDelete" layoutX="3.0" layoutY="2.0" onAction="#btnDeleteOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="       Delete" textFill="#6a6a6a">
+                           <font>
+                              <Font name="Poppins SemiBold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <ImageView fx:id="imgDelete" fitHeight="22.0" fitWidth="22.0" layoutX="18.0" layoutY="10.0" onMouseClicked="#btnDeleteOnMouseClick" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/delete.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Group>
+                  <Group layoutX="115.20000147819519">
+                     <children>
+                        <JFXButton fx:id="btnEdit" onAction="#btnEditOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: 40; -fx-border-color: #8946A6; -fx-background-radius: 40;" text="      Edit" textFill="#6a6a6a">
+                           <font>
+                              <Font name="Poppins SemiBold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <ImageView fx:id="imgEdit" fitHeight="22.0" fitWidth="22.0" layoutX="26.0" layoutY="7.0" onMouseClicked="#btnEditOnMouseClick" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/edit.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Group>
                </children>
             </Group>
             <Group layoutX="125.0" layoutY="10.0">
@@ -85,7 +95,7 @@
                   </JFXButton>
                   <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="22.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/plus.png" />
+                        <Image url="@../../img/plus.png" />
                      </image>
                   </ImageView>
                </children>
@@ -101,21 +111,21 @@
             </JFXButton>
             <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="16.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/refresh.png" />
+                  <Image url="@../../img/refresh.png" />
                </image>
             </ImageView>
          </children>
       </Group>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/thogakade_logo.png" />
+            <Image url="@../../img/thogakade_logo.png" />
          </image>
       </ImageView>
       <Group layoutX="735.0" layoutY="13.0">
          <children>
             <ImageView fitHeight="45.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/user.png" />
+                  <Image url="@../../img/user.png" />
                </image>
             </ImageView>
             <Label fx:id="lblUser" layoutX="57.0" layoutY="9.0" text="Admin" textFill="#6a6a6a">

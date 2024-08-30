@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="350.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemDataController">
+   <children>
+      <Line endX="256.0" endY="-19.599987030029297" layoutX="144.0" layoutY="70.0" startX="-144.0" startY="-19.599987030029297" stroke="#e0e0e0" />
+      <Group layoutX="25.0" layoutY="9.0">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="120.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/thogakade_logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <VBox alignment="CENTER" layoutX="39.0" layoutY="55.0" prefHeight="227.0" prefWidth="350.0" spacing="10.0">
+         <children>
+            <HBox prefHeight="34.0" prefWidth="332.0" spacing="60.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="52.0" text="Code: " textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <HBox prefHeight="34.0" prefWidth="250.0" spacing="5.0">
+                     <children>
+                        <Label text="P">
+                           <padding>
+                              <Insets top="3.0" />
+                           </padding>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txtCode" focusColor="#8946a6" prefHeight="26.0" prefWidth="200.0" unFocusColor="#6a6a6a">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="195.0" spacing="22.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="86.0" text="Description:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="txtDescription" focusColor="#8946a6" prefHeight="27.0" prefWidth="208.0" unFocusColor="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Regular" size="12.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="193.0" spacing="38.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="69.0" text="Pack Size:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="txtPackSize" focusColor="#8946a6" prefHeight="26.0" prefWidth="208.0" unFocusColor="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Regular" size="12.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="79.0" prefHeight="34.0" prefWidth="260.0" spacing="34.0">
+               <children>
+                  <HBox prefHeight="34.0" prefWidth="349.0" spacing="36.0">
+                     <children>
+                        <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="71.0" text="Unit Price:" textFill="#6a6a6a">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets top="3.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <HBox prefHeight="34.0" prefWidth="217.0">
+                           <children>
+                              <Label text="Rs. ">
+                                 <padding>
+                                    <Insets top="3.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="txtPrice" focusColor="#8946a6" prefHeight="30.0" prefWidth="187.0" unFocusColor="#6a6a6a">
+                                 <font>
+                                    <Font name="Poppins Regular" size="12.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="113.0" prefHeight="34.0" prefWidth="195.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="96.0" text="Qtn On Hand:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <HBox prefHeight="34.0" prefWidth="217.0">
+                     <children>
+                        <JFXTextField fx:id="txtQtnOnHand" focusColor="#8946a6" prefHeight="26.0" prefWidth="170.0" unFocusColor="#6a6a6a">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label text=" Units">
+                           <padding>
+                              <Insets top="3.0" />
+                           </padding>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="lblTitle" layoutX="256.0" layoutY="11.0" text="Add Product" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="36.0" layoutY="293.0" prefHeight="26.0" prefWidth="318.0" spacing="30.0">
+         <children>
+            <JFXButton fx:id="btnCancel" onAction="#btnCancelOnAction" style="-fx-border-color: #8946A6; -fx-border-radius: 40; -fx-background-radius: 40;" text="Cancel" textFill="#8946a6">
+               <font>
+                  <Font name="Poppins Medium" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+               </padding>
+            </JFXButton>
+            <JFXButton fx:id="btnDone" layoutX="10.0" layoutY="10.0" onAction="#btnDoneOnAction" style="-fx-background-color: #8946A6; -fx-background-radius: 40; -fx-border-radius: 40;" text="Add Product" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Medium" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+               </padding>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
