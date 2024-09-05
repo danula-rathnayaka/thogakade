@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,8 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="350.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemDataController">
+<AnchorPane prefHeight="471.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customer.CustomerDataController">
    <children>
       <Line endX="256.0" endY="-19.599987030029297" layoutX="144.0" layoutY="70.0" startX="-144.0" startY="-19.599987030029297" stroke="#e0e0e0" />
       <Group layoutX="25.0" layoutY="9.0">
@@ -26,11 +27,11 @@
             </ImageView>
          </children>
       </Group>
-      <VBox alignment="CENTER" layoutX="39.0" layoutY="55.0" prefHeight="227.0" prefWidth="350.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="41.0" layoutY="73.0" prefHeight="314.0" prefWidth="357.0" spacing="10.0">
          <children>
             <HBox prefHeight="34.0" prefWidth="332.0" spacing="60.0">
                <children>
-                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="52.0" text="Code: " textFill="#6a6a6a">
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="52.0" text="ID:" textFill="#6a6a6a">
                      <font>
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
@@ -43,7 +44,7 @@
                   </Label>
                   <HBox prefHeight="34.0" prefWidth="250.0" spacing="5.0">
                      <children>
-                        <Label text="P">
+                        <Label text="C">
                            <padding>
                               <Insets top="3.0" />
                            </padding>
@@ -51,7 +52,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txtCode" focusColor="#8946a6" prefHeight="26.0" prefWidth="200.0" unFocusColor="#6a6a6a">
+                        <JFXTextField fx:id="txtId" focusColor="#8946a6" prefHeight="26.0" prefWidth="194.0" unFocusColor="#6a6a6a">
                            <font>
                               <Font name="Poppins Regular" size="12.0" />
                            </font>
@@ -60,9 +61,9 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="195.0" spacing="22.0">
+            <HBox layoutX="10.0" layoutY="16.0" prefHeight="34.0" prefWidth="332.0" spacing="60.0">
                <children>
-                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="86.0" text="Description:" textFill="#6a6a6a">
+                  <Label alignment="TOP_LEFT" prefHeight="26.0" prefWidth="49.0" text="Title:" textFill="#6a6a6a">
                      <font>
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
@@ -73,16 +74,32 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="txtDescription" focusColor="#8946a6" prefHeight="27.0" prefWidth="208.0" unFocusColor="#6a6a6a">
+                  <JFXComboBox fx:id="comboTitle" focusColor="#8946a6" prefHeight="26.0" prefWidth="208.0" unFocusColor="#6a6a6a" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="195.0" spacing="22.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="86.0" text="Name:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="txtName" focusColor="#8946a6" prefHeight="26.0" prefWidth="208.0" unFocusColor="#6a6a6a">
                      <font>
                         <Font name="Poppins Regular" size="12.0" />
                      </font>
                   </JFXTextField>
                </children>
             </HBox>
-            <HBox prefHeight="34.0" prefWidth="193.0" spacing="38.0">
+            <HBox prefHeight="34.0" prefWidth="193.0" spacing="8.0">
                <children>
-                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="69.0" text="Pack Size:" textFill="#6a6a6a">
+                  <Label alignment="TOP_LEFT" prefHeight="26.0" prefWidth="101.0" text="Date Of Birth:" textFill="#6a6a6a">
                      <font>
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
@@ -93,18 +110,14 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="txtPackSize" focusColor="#8946a6" prefHeight="26.0" prefWidth="208.0" unFocusColor="#6a6a6a">
-                     <font>
-                        <Font name="Poppins Regular" size="12.0" />
-                     </font>
-                  </JFXTextField>
+                  <DatePicker fx:id="bdayDatePicker" prefHeight="26.0" prefWidth="208.0" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="79.0" prefHeight="34.0" prefWidth="260.0" spacing="34.0">
                <children>
                   <HBox prefHeight="34.0" prefWidth="349.0" spacing="36.0">
                      <children>
-                        <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="71.0" text="Unit Price:" textFill="#6a6a6a">
+                        <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="71.0" text="Salary:" textFill="#6a6a6a">
                            <font>
                               <Font name="Poppins Medium" size="14.0" />
                            </font>
@@ -125,7 +138,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="txtPrice" focusColor="#8946a6" prefHeight="30.0" prefWidth="187.0" unFocusColor="#6a6a6a">
+                              <JFXTextField fx:id="txtSalary" focusColor="#8946a6" prefHeight="26.0" prefWidth="187.0" unFocusColor="#6a6a6a">
                                  <font>
                                     <Font name="Poppins Regular" size="12.0" />
                                  </font>
@@ -138,7 +151,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="113.0" prefHeight="34.0" prefWidth="195.0" spacing="15.0">
                <children>
-                  <Label alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="96.0" text="Qtn On Hand:" textFill="#6a6a6a">
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="96.0" text="Address:" textFill="#6a6a6a">
                      <font>
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
@@ -151,31 +164,95 @@
                   </Label>
                   <HBox prefHeight="34.0" prefWidth="217.0">
                      <children>
-                        <JFXTextField fx:id="txtQtnOnHand" focusColor="#8946a6" prefHeight="26.0" prefWidth="170.0" unFocusColor="#6a6a6a">
+                        <JFXTextField fx:id="txtAddress" focusColor="#8946a6" prefHeight="26.0" prefWidth="205.0" unFocusColor="#6a6a6a">
                            <font>
                               <Font name="Poppins Regular" size="12.0" />
                            </font>
                         </JFXTextField>
-                        <Label text=" Units">
-                           <padding>
-                              <Insets top="3.0" />
-                           </padding>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="208.0" prefHeight="34.0" prefWidth="195.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="96.0" text="City:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <HBox prefHeight="34.0" prefWidth="217.0">
+                     <children>
+                        <JFXTextField fx:id="txtCity" focusColor="#8946a6" prefHeight="26.0" prefWidth="206.0" unFocusColor="#6a6a6a">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Poppins Regular" size="12.0" />
                            </font>
-                        </Label>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="226.0" prefHeight="34.0" prefWidth="195.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="96.0" text="Province:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <HBox prefHeight="34.0" prefWidth="217.0">
+                     <children>
+                        <JFXTextField fx:id="txtProvince" focusColor="#8946a6" prefHeight="26.0" prefWidth="207.0" unFocusColor="#6a6a6a">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="262.0" prefHeight="34.0" prefWidth="195.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="34.0" prefWidth="96.0" text="Postal Code:" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <HBox prefHeight="34.0" prefWidth="217.0">
+                     <children>
+                        <JFXTextField fx:id="txtPostalCode" focusColor="#8946a6" prefHeight="26.0" prefWidth="207.0" unFocusColor="#6a6a6a">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </JFXTextField>
                      </children>
                   </HBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="lblTitle" layoutX="256.0" layoutY="11.0" text="Add Product" textFill="#6a6a6a">
+      <Label fx:id="lblTitle" layoutX="245.0" layoutY="11.0" text="Add Customer" textFill="#6a6a6a">
          <font>
             <Font name="Poppins SemiBold" size="18.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="36.0" layoutY="293.0" prefHeight="26.0" prefWidth="318.0" spacing="30.0">
+      <HBox alignment="CENTER" layoutX="41.0" layoutY="416.0" prefHeight="26.0" prefWidth="318.0" spacing="30.0">
          <children>
             <JFXButton fx:id="btnCancel" onAction="#btnCancelOnAction" style="-fx-border-color: #8946A6; -fx-border-radius: 40; -fx-background-radius: 40;" text="Cancel" textFill="#8946a6">
                <font>
@@ -185,7 +262,7 @@
                   <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
                </padding>
             </JFXButton>
-            <JFXButton fx:id="btnDone" layoutX="10.0" layoutY="10.0" onAction="#btnDoneOnAction" style="-fx-background-color: #8946A6; -fx-background-radius: 40; -fx-border-radius: 40;" text="Add Product" textFill="WHITE">
+            <JFXButton fx:id="btnDone" layoutX="10.0" layoutY="10.0" onAction="#btnDoneOnAction" style="-fx-background-color: #8946A6; -fx-background-radius: 40; -fx-border-radius: 40;" text="Add Customer" textFill="WHITE">
                <font>
                   <Font name="Poppins Medium" size="13.0" />
                </font>

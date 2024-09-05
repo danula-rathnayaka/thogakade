@@ -1,8 +1,7 @@
-package controller;
+package controller.item;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import db.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,9 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Item;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
@@ -44,6 +40,8 @@ public class ItemDataController {
     private JFXTextField txtQtnOnHand;
     private boolean isAdd = true;
 
+    private ItemController service = new ItemControllerImpl();
+
     @FXML
     void btnCancelOnAction(ActionEvent event) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -57,55 +55,31 @@ public class ItemDataController {
             return;
         }
 
-        String code = txtCode.getText();
-        String description = txtDescription.getText();
-        String pktSize = txtPackSize.getText();
-        Double price = Double.parseDouble(txtPrice.getText());
-        String qtnOnHand = txtQtnOnHand.getText();
+        Item item = new Item(
+        "P" + txtCode.getText(),
+        txtDescription.getText(),
+        txtPackSize.getText(),
+        Double.parseDouble(txtPrice.getText()),
+        Integer.parseInt(txtQtnOnHand.getText()));
 
-        Connection conn = null;
         try {
-            conn = DBConnection.getInstance().getConnection();
+            if (isAdd? service.addItem(item) : service.editItem(item)) {
+                showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
-            PreparedStatement pst;
-
-            if (isAdd) {
-                pst = conn.prepareStatement("INSERT INTO item (ItemCode, Description, PackSize, UnitPrice, QtyOnHand) VALUES (?, ?, ?, ?, ?);");
-
-                pst.setString(1, "P" + code);
-                pst.setString(2, description);
-                pst.setString(3, pktSize);
-                pst.setDouble(4, price);
-                pst.setString(5, qtnOnHand);
-            } else {
-                pst = conn.prepareStatement("UPDATE item SET Description = ?, PackSize = ?, UnitPrice = ?, QtyOnHand = ? WHERE ItemCode = ?;");
-
-                pst.setString(1, description);
-                pst.setString(2, pktSize);
-                pst.setDouble(3, price);
-                pst.setString(4, qtnOnHand);
-                pst.setString(5, "P" + code);
-            }
-            try {
-                if (pst.executeUpdate() > 0) {
-                    showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
-
-                    if (isAdd) {
-                        Arrays.asList(txtCode, txtDescription, txtPrice, txtPackSize, txtQtnOnHand).forEach(JFXTextField::clear);
-                    } else {
-                        Stage stage = (Stage) txtCode.getScene().getWindow();
-                        stage.close();
-                    }
-
+                if (isAdd) {
+                    Arrays.asList(txtCode, txtDescription, txtPrice, txtPackSize, txtQtnOnHand).forEach(JFXTextField::clear);
                 } else {
-                    showAlert("Error", "Could not update the Database.\nPlease reload the table.", Alert.AlertType.ERROR);
+                    Stage stage = (Stage) txtCode.getScene().getWindow();
+                    stage.close();
                 }
-            } catch (SQLIntegrityConstraintViolationException e) {
-                showAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
-            }
 
+            } else {
+                showAlert("Error", "Could not update the Database.\nPlease reload the table.", Alert.AlertType.ERROR);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            showAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
         } catch (SQLException | NullPointerException e) {
-            showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
+        showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
         }
 
     }
