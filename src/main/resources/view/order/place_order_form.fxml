@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="581.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.PlaceOrderFormController">
+   <children>
+      <Label layoutX="194.0" layoutY="14.0" text="Place Order Form">
+         <font>
+            <Font name="Poppins SemiBold" size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="60.0" layoutY="90.0" prefHeight="100.0" prefWidth="502.0" spacing="10.0">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="162.0" spacing="20.0">
+               <children>
+                  <JFXComboBox fx:id="comboCustomer" prefHeight="26.0" prefWidth="150.0" />
+                  <JFXComboBox fx:id="comboItem" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="165.0" spacing="20.0">
+               <children>
+                  <Label fx:id="lblCName" text="Customer Name">
+                     <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDescription" layoutX="10.0" layoutY="10.0" text="Desctiption">
+                     <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="110.0" layoutY="10.0" prefHeight="100.0" prefWidth="163.0" spacing="20.0">
+               <children>
+                  <Label fx:id="lblCAddress" prefHeight="23.0" prefWidth="169.0" text="Customer Address">
+                     <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="30.0" prefWidth="160.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="lblStock" text="Stock">
+                           <font>
+                              <Font name="Poppins Medium" size="16.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txtQty" prefHeight="26.0" prefWidth="91.0" promptText="Qty" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TableView layoutX="60.0" layoutY="200.0" prefHeight="330.0" prefWidth="502.0">
+        <columns>
+          <TableColumn fx:id="colCode" prefWidth="68.79998779296875" text="Item Code" />
+          <TableColumn fx:id="colDescription" prefWidth="144.0" text="Description" />
+            <TableColumn fx:id="colQty" prefWidth="69.60003662109375" text="QTY" />
+            <TableColumn fx:id="colunitPrice" prefWidth="102.39996337890625" text="Unit Price" />
+            <TableColumn fx:id="colTotal" prefWidth="116.00006103515625" text="Total" />
+        </columns>
+      </TableView>
+      <HBox layoutX="41.0" layoutY="544.0" prefHeight="30.0" prefWidth="256.0">
+         <children>
+            <Label prefHeight="23.0" prefWidth="90.0" text="Net Total : ">
+               <font>
+                  <Font name="Poppins Medium" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="33.0" text="Rs :">
+               <font>
+                  <Font name="Poppins Medium" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblNetTotal" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="86.0" text="00.0">
+               <font>
+                  <Font name="Poppins Medium" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <JFXButton layoutX="449.0" layoutY="540.0" onAction="#btnPlaceOrderOnAction" style="-fx-background-color: purple;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="Poppins Medium" size="16.0" />
+         </font>
+      </JFXButton>
+      <HBox alignment="CENTER" layoutX="60.0" layoutY="59.0" prefHeight="23.0" prefWidth="502.0" spacing="20.0">
+         <children>
+            <Label text="Order ID: ">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblOrderID" layoutX="10.0" layoutY="10.0" text="O001">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="10.0" text="Date :">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="66.0" layoutY="10.0" text="2024-08-09">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="94.0" layoutY="10.0" text="Time">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTime" layoutX="122.0" layoutY="10.0" text="18:55">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

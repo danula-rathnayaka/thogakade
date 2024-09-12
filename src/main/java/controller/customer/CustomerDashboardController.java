@@ -1,8 +1,6 @@
 package controller.customer;
 
 import com.jfoenix.controls.JFXButton;
-import db.DBConnection;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,11 +16,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Customer;
-
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CustomerDashboardController implements Initializable {
@@ -37,31 +33,31 @@ public class CustomerDashboardController implements Initializable {
     private Group btnEditBtnDelete;
 
     @FXML
-    private TableColumn<?, ?> colAddress;
+    private TableColumn<Customer, String> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colCity;
+    private TableColumn<Customer, String> colCity;
 
     @FXML
-    private TableColumn<?, ?> colDob;
+    private TableColumn<Customer, LocalDate> colDob;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<Customer, String> colId;
 
     @FXML
-    public TableColumn<?, ?> colTitle;
+    public TableColumn<Customer, String> colTitle;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<Customer, String> colName;
 
     @FXML
-    private TableColumn<?, ?> colPostalCode;
+    private TableColumn<Customer, String> colPostalCode;
 
     @FXML
-    private TableColumn<?, ?> colProvince;
+    private TableColumn<Customer, String> colProvince;
 
     @FXML
-    private TableColumn<?, ?> colSalary;
+    private TableColumn<Customer, Double> colSalary;
 
     @FXML
     private ImageView imgCancelSearch;
@@ -84,8 +80,6 @@ public class CustomerDashboardController implements Initializable {
     private ObservableList<Customer> customerList;
 
     private Customer selectedData;
-
-    CustomerController service = new CustomerControllerImpl();
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -114,16 +108,12 @@ public class CustomerDashboardController implements Initializable {
 
     private void deleteCustomer(){
         if(showConfirmationDialog("delete")){
-            try {
-                if (service.deleteCustomer(selectedData.getId())) {
-                    showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
+            if (CustomerControllerImpl.getInstance().deleteCustomer(selectedData.getId())) {
+                showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
-                    loadData();
-                } else {
-                    showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
-                }
-            } catch (SQLException e) {
-                showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
+                loadData();
+            } else {
+                showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
             }
         }
     }
@@ -138,7 +128,7 @@ public class CustomerDashboardController implements Initializable {
     void btnReloadOnAction(ActionEvent event) {
         loadData();
         tblCustomers.getSelectionModel().clearSelection();
-        btnEditBtnDelete.setVisible(true);
+        btnEditBtnDelete.setVisible(false);
     }
 
     @FXML
@@ -161,7 +151,7 @@ public class CustomerDashboardController implements Initializable {
         imgCancelSearch.setVisible(true);
         tblCustomers.setItems(customerList
                 .filtered(customer ->
-                        customer.getId().toLowerCase().startsWith(searchTxt) ||
+                        customer.getId().toLowerCase().contains(searchTxt) ||
                         customer.getName().toLowerCase().startsWith(searchTxt))
         );
     }
@@ -189,13 +179,8 @@ public class CustomerDashboardController implements Initializable {
     }
 
     private void loadData(){
-        try {
-            customerList = service.getAllCustomers();
-            tblCustomers.setItems(customerList);
-        } catch (SQLException e) {
-            showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
-            System.out.println(e);
-        }
+        customerList = CustomerControllerImpl.getInstance().getAllCustomers();
+        tblCustomers.setItems(customerList);
     }
 
     private void loadCustomerDataForm(Customer customer){

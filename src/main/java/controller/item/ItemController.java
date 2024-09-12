@@ -4,10 +4,13 @@ import javafx.collections.ObservableList;
 import model.Item;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public interface ItemController {
-    ObservableList<Item> getAllProducts() throws SQLException;
-    boolean deleteItem(String code) throws SQLException;
-    boolean editItem(Item item) throws SQLException;
-    boolean addItem(Item item) throws SQLException;
+    ObservableList<Item> getAllProducts();
+    boolean deleteItem(String code);
+    boolean editItem(Item item) throws SQLIntegrityConstraintViolationException;
+    boolean addItem(Item item) throws SQLIntegrityConstraintViolationException;
+    ObservableList<String> getProductCodes();
+    Item getItem(String code);
 }

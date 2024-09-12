@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.OrderDashboardController">
+   <children>
+      <Label layoutX="61.0" layoutY="50.0" prefHeight="35.0" prefWidth="125.0" text="Orders" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="24.0" />
+         </font>
+      </Label>
+      <Group layoutX="218.0" layoutY="50.0">
+         <children>
+            <Label layoutX="250.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
+            <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
+            <TextField fx:id="txtSearch" layoutX="36.0" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+               <font>
+                  <Font name="Poppins Regular" size="14.0" />
+               </font>
+            </TextField>
+            <JFXButton layoutX="280.0" layoutY="6.0" onAction="#btnCancelSearchOnAction" prefHeight="28.0" prefWidth="27.0" text=" ">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
+            <ImageView fx:id="imgCancelSearch" fitHeight="25.0" fitWidth="29.0" layoutX="281.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../../img/cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <TableView fx:id="tblOrder" layoutX="61.0" layoutY="118.0" prefHeight="580.0" prefWidth="616.0">
+        <columns>
+          <TableColumn fx:id="colOrderId" editable="false" prefWidth="99.99998474121094" resizable="false" styleClass="table-row-cell" text="ID" />
+            <TableColumn fx:id="colCustomerId" editable="false" prefWidth="111.99998474121094" resizable="false" styleClass="table-row-cell" text="CUSTOMER ID" />
+            <TableColumn fx:id="colOrderDate" editable="false" prefWidth="153.33328247070312" resizable="false" styleClass="table-row-cell" text="ORDER DATE" />
+            <TableColumn fx:id="colTotalDiscount" editable="false" prefWidth="128.79998779296875" resizable="false" styleClass="table-row-cell" text="DISCOUNT" />
+            <TableColumn fx:id="colBillTotal" editable="false" prefWidth="119.199951171875" resizable="false" styleClass="table-row-cell" text="TOTAL" />
+        </columns>
+      </TableView>
+      <Group layoutX="301.0" layoutY="720.0">
+         <children>
+            <JFXButton onAction="#btnReloadOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #8946A6; -fx-background-radius: 100; -fx-border-radius: 100;" text="      Reload" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Medium" size="14.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="16.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/refresh.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <TableView fx:id="tblOrderProducts" layoutX="690.0" layoutY="404.0" prefHeight="293.0" prefWidth="526.0" stylesheets="@../../css/TableViewStylesMini.css">
+         <columns>
+            <TableColumn fx:id="colCode" prefWidth="53.60003662109375" style="-fx-font-size: 12;" text="ID" />
+            <TableColumn fx:id="colDescription" prefWidth="158.4000244140625" style="-fx-font-size: 12;" text="DESCRIPTION" />
+            <TableColumn fx:id="colPackSize" prefWidth="77.60003662109375" style="-fx-font-size: 12;" text="PACK SIZE" />
+            <TableColumn fx:id="colPrice" prefWidth="78.39996337890625" style="-fx-font-size: 12;" text="UNIT PRICE" />
+            <TableColumn fx:id="colQty" minWidth="6.39990234375" prefWidth="80.7998046875" style="-fx-font-size: 12;" text="ORDER QTY" />
+            <TableColumn fx:id="colDiscount" prefWidth="70.39990234375" style="-fx-font-size: 12;" text="DISCOUNT" />
+         </columns>
+      </TableView>
+      <Label layoutX="707.0" layoutY="135.0" text="Customer Details" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="725.0" layoutY="175.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="78.0" prefWidth="217.0">
+               <children>
+                  <VBox prefHeight="104.0" prefWidth="101.0" spacing="8.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="28.0" text="Name">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="45.0" text="DOB">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="38.0" text="Salary">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="8.0" spacing="8.0">
+                     <children>
+                        <Label text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="38.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="118.0" spacing="8.0">
+                     <children>
+                        <Label fx:id="lblName" layoutX="10.0" layoutY="28.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDob" layoutX="10.0" layoutY="45.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSalary" layoutX="10.0" layoutY="38.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="78.0" prefWidth="239.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="90.0" spacing="8.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="10.0" text="Address">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="28.0" text="City">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="45.0" text="Province">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="19.0" spacing="8.0">
+                     <children>
+                        <Label text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="28.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="78.0" prefWidth="136.0" spacing="8.0">
+                     <children>
+                        <Label fx:id="lblAddress">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCity" layoutX="10.0" layoutY="10.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblProvince" layoutX="10.0" layoutY="28.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <Label layoutX="707.0" layoutY="268.0" text="Order Details" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="18.0" />
+         </font>
+      </Label>
+      <HBox layoutX="725.0" layoutY="311.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="78.0" prefWidth="217.0">
+               <children>
+                  <VBox prefHeight="104.0" prefWidth="101.0" spacing="8.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="28.0" text="No. Items">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="45.0" text="No. Products">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="38.0" text="Cashier">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="8.0" spacing="8.0">
+                     <children>
+                        <Label text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="38.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="118.0" spacing="8.0">
+                     <children>
+                        <Label fx:id="lnlNumItems" layoutX="10.0" layoutY="28.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblNumProducts" layoutX="10.0" layoutY="45.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCashier" layoutX="10.0" layoutY="38.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="78.0" prefWidth="239.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="90.0" spacing="8.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="10.0" text="Date">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="28.0" text="Time">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="19.0" spacing="8.0">
+                     <children>
+                        <Label text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="78.0" prefWidth="136.0" spacing="8.0">
+                     <children>
+                        <Label fx:id="lblDate">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTime" layoutX="10.0" layoutY="10.0">
+                           <font>
+                              <Font name="Poppins Medium" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

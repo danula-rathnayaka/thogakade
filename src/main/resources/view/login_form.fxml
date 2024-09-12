@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="330.0" prefWidth="550.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.login.LoginFormController">
+   <children>
+      <ImageView fitHeight="265.0" fitWidth="286.0" layoutX="264.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/cashier.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="37.0" layoutY="15.0" text="Login to your account" textFill="#6a6a6a">
+         <font>
+            <Font name="Poppins SemiBold" size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="36.0" layoutY="80.0" prefHeight="171.0" prefWidth="215.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="75.0" prefWidth="236.0">
+               <children>
+                  <Label text="Username" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txtUsername" focusColor="#8946a6" prefHeight="26.0" prefWidth="215.0">
+                     <font>
+                        <Font name="Poppins Medium" size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <Label textFill="RED">
+                     <font>
+                        <Font name="Poppins Medium" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="75.0" prefWidth="240.0">
+               <children>
+                  <Label text="Password" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXPasswordField fx:id="pwdPassword" focusColor="#8946a6" prefHeight="26.0" prefWidth="180.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXPasswordField>
+                  <Label textFill="RED">
+                     <font>
+                        <Font name="Poppins Medium" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <JFXTextField fx:id="txtPassword" focusColor="#8946a6" layoutX="36.0" layoutY="203.3" prefHeight="26.0" prefWidth="215.0" visible="false">
+         <font>
+            <Font name="Poppins Medium" size="14.0" />
+         </font></JFXTextField>
+      <JFXButton layoutX="107.0" layoutY="262.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="75.0" style="-fx-background-color: #8946A6; -fx-background-radius: 100; -fx-border-radius: 100;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="Poppins SemiBold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="imgPasswordToggle" fitHeight="23.0" fitWidth="25.0" layoutX="256.5" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/show_password.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="253.0" layoutY="202.0" onAction="#btnPasswordToggleOnAction" prefHeight="18.0" prefWidth="30.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" text=" " textFill="WHITE">
+         <font>
+            <Font name="Poppins SemiBold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

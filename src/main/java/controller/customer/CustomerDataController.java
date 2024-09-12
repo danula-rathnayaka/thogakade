@@ -59,8 +59,6 @@ public class CustomerDataController implements Initializable {
     @FXML
     private JFXTextField txtSalary;
 
-    CustomerController service = new CustomerControllerImpl();
-
     private boolean isAdd = true;
 
     @FXML
@@ -88,7 +86,7 @@ public class CustomerDataController implements Initializable {
         );
 
         try {
-            if (isAdd? service.addCustomer(customer) : service.updateCustomer(customer)) {
+            if (isAdd? CustomerControllerImpl.getInstance().addCustomer(customer) : CustomerControllerImpl.getInstance().updateCustomer(customer)) {
                 showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {
@@ -105,10 +103,7 @@ public class CustomerDataController implements Initializable {
             }
         } catch (SQLIntegrityConstraintViolationException e) {
             showAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
-        }catch (SQLException | NullPointerException e) {
-            showAlert("Database Error", "Error occurred while updating database;", Alert.AlertType.ERROR);
         }
-
     }
 
     void setCustomer(Customer customer) {

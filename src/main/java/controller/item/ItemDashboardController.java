@@ -36,19 +36,19 @@ public class ItemDashboardController implements Initializable {
     public Group btnEditBtnDelete;
 
     @FXML
-    private TableColumn<?, ?> colDsc;
+    private TableColumn<Item, String> colDsc;
 
     @FXML
-    private TableColumn<?, ?> colItemCode;
+    private TableColumn<Item, String> colItemCode;
 
     @FXML
-    private TableColumn<?, ?> colPackSize;
+    private TableColumn<Item, String> colPackSize;
 
     @FXML
-    private TableColumn<?, ?> colQtnOnHand;
+    private TableColumn<Item, Integer> colQtnOnHand;
 
     @FXML
-    private TableColumn<?, ?> colUnitPrice;
+    private TableColumn<Item, Double> colUnitPrice;
 
     @FXML
     private Label lblUser;
@@ -61,7 +61,6 @@ public class ItemDashboardController implements Initializable {
 
     private ObservableList<Item> itemList;
     private Item selectedData;
-    private ItemController service = new ItemControllerImpl();
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -90,16 +89,12 @@ public class ItemDashboardController implements Initializable {
 
     private void deleteItem() {
         if (showConfirmationDialog("delete")) {
-            try {
-                if (service.deleteItem(selectedData.getCode())) {
-                    showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
+            if (ItemControllerImpl.getInstance().deleteItem(selectedData.getCode())) {
+                showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
-                    loadData();
-                } else {
-                    showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
-                }
-            } catch (SQLException e) {
-                showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
+                loadData();
+            } else {
+                showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
             }
         }
     }
@@ -130,8 +125,8 @@ public class ItemDashboardController implements Initializable {
         imgCancelSearch.setVisible(true);
         tblProducts.setItems(itemList
                 .filtered(item ->
-                        item.getCode().toLowerCase().startsWith(searchTxt) ||
-                                item.getDescription().toLowerCase().startsWith(searchTxt))
+                        item.getCode().toLowerCase().contains(searchTxt) ||
+                        item.getDescription().toLowerCase().startsWith(searchTxt))
         );
     }
 
@@ -161,12 +156,8 @@ public class ItemDashboardController implements Initializable {
     }
 
     private void loadData() {
-        try {
-            itemList = service.getAllProducts();
-            tblProducts.setItems(itemList);
-        } catch (SQLException e) {
-            showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
-        }
+        itemList = ItemControllerImpl.getInstance().getAllProducts();
+        tblProducts.setItems(itemList);
     }
 
     private void loadItemDataForm(Item item) {

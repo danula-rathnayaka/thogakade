@@ -9,7 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Item;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 
@@ -40,8 +39,6 @@ public class ItemDataController {
     private JFXTextField txtQtnOnHand;
     private boolean isAdd = true;
 
-    private ItemController service = new ItemControllerImpl();
-
     @FXML
     void btnCancelOnAction(ActionEvent event) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -63,7 +60,7 @@ public class ItemDataController {
         Integer.parseInt(txtQtnOnHand.getText()));
 
         try {
-            if (isAdd? service.addItem(item) : service.editItem(item)) {
+            if (isAdd? ItemControllerImpl.getInstance().addItem(item) : ItemControllerImpl.getInstance().editItem(item)) {
                 showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {
@@ -78,10 +75,7 @@ public class ItemDataController {
             }
         } catch (SQLIntegrityConstraintViolationException e) {
             showAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
-        } catch (SQLException | NullPointerException e) {
-        showAlert("Database Error", "Could not connect to the Database.", Alert.AlertType.ERROR);
         }
-
     }
 
     void setItem(Item item) {
