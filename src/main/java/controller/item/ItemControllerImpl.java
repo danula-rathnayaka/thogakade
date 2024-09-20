@@ -5,7 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Item;
+import model.OrderProducts;
 import util.CrudUtil;
+import util.ShowAlert;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -28,15 +31,15 @@ public class ItemControllerImpl implements ItemController{
 
             while (rst.next()) {
                 itemList.add(new Item(
-                        rst.getString(1),
-                        rst.getString(2),
-                        rst.getString(3),
-                        rst.getDouble(4),
-                        rst.getInt(5)
+                        rst.getString("ItemCode"),
+                        rst.getString("Description"),
+                        rst.getString("PackSize"),
+                        rst.getDouble("UnitPrice"),
+                        rst.getInt("QtyOnHand")
                 ));
             }
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
         }
         return itemList;
     }
@@ -46,7 +49,7 @@ public class ItemControllerImpl implements ItemController{
         try {
             return CrudUtil.execute("DELETE FROM item WHERE ItemCode = ?;", code);
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -64,7 +67,7 @@ public class ItemControllerImpl implements ItemController{
         }catch (SQLIntegrityConstraintViolationException e){
             throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -82,7 +85,7 @@ public class ItemControllerImpl implements ItemController{
         }catch (SQLIntegrityConstraintViolationException e){
             throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -102,22 +105,20 @@ public class ItemControllerImpl implements ItemController{
             rst.next();
 
             return new Item(
-                    rst.getString(1),
-                    rst.getString(2),
-                    rst.getString(3),
-                    rst.getDouble(4),
-                    rst.getInt(5)
+                    rst.getString("ItemCode"),
+                    rst.getString("Description"),
+                    rst.getString("PackSize"),
+                    rst.getDouble("UnitPrice"),
+                    rst.getInt("QtyOnHand")
             );
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return new Item();
         }
     }
 
-    private void showErrorAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect the Database.", ButtonType.OK);
-        alert.setTitle("Error Occurred.");
-        alert.setHeaderText(null);
-        alert.showAndWait();
+    public boolean updateStock(OrderProducts orderProducts){
+//        CrudUtil.execute()
+        return true;
     }
 }

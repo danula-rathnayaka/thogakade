@@ -1,29 +1,24 @@
 package controller.order;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import controller.customer.CustomerControllerImpl;
-import controller.item.ItemControllerImpl;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import controller.customer.CustomerDataController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.util.Duration;
-import model.Customer;
-import model.Item;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import util.ShowAlert;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-public class PlaceOrderFormController implements Initializable {
+public class PlaceOrderFormController {
 
     @FXML
     private TableColumn<?, ?> colCode;
@@ -32,98 +27,130 @@ public class PlaceOrderFormController implements Initializable {
     private TableColumn<?, ?> colDescription;
 
     @FXML
+    private TableColumn<?, ?> colDiscount;
+
+    @FXML
+    private TableColumn<?, ?> colNetTotal;
+
+    @FXML
     private TableColumn<?, ?> colQty;
 
     @FXML
     private TableColumn<?, ?> colTotal;
 
     @FXML
-    private TableColumn<?, ?> colunitPrice;
+    private TableColumn<?, ?> colUnitPrice;
 
     @FXML
-    private JFXComboBox<String> comboCustomer;
+    private ImageView imgCustomerOk;
 
     @FXML
-    private JFXComboBox<String> comboItem;
+    private ImageView imgProductOk;
 
     @FXML
     private Label lblCAddress;
 
     @FXML
-    private Label lblDate;
+    private Label lblCContact;
 
     @FXML
-    private Label lblDescription;
+    private Label lblCDob;
 
     @FXML
-    private Label lblNetTotal;
-
-    @FXML
-    private Label lblOrderID;
-
-    @FXML
-    private Label lblStock;
-
-    @FXML
-    private Label lblTime;
+    private Label lblCId;
 
     @FXML
     private Label lblCName;
 
     @FXML
-    private JFXTextField txtQty;
+    private Label lblDate;
+
+    @FXML
+    private Label lblGrandTotal;
+
+    @FXML
+    private Label lblNetTotal;
+
+    @FXML
+    private Label lblNoItems;
+
+    @FXML
+    private Label lblNoProducts;
+
+    @FXML
+    private Label lblPCode;
+
+    @FXML
+    private Label lblPName;
+
+    @FXML
+    private Label lblPPackSize;
+
+    @FXML
+    private Label lblPQtyOnHand;
+
+    @FXML
+    private Label lblPUnitPrice;
+
+    @FXML
+    private Label lblTime;
+
+    @FXML
+    private Label lblTotalDiscount;
+
+    @FXML
+    private Label lblUserName;
+
+    @FXML
+    private TableView<?> tblCart;
+
+    @FXML
+    private TextField txtCustomerSearch;
+
+    @FXML
+    private JFXTextField txtPQtyOrdered;
+
+    @FXML
+    private TextField txtProductSearch;
+
+    @FXML
+    void btnAddCustomerOnAction(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/customer/data_form.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            ShowAlert.fileNotFoundError();
+        }
+    }
+
+    @FXML
+    void btnAddToCartOnAction(ActionEvent event) {
+        // TODO
+    }
+
+    @FXML
+    void btnCustomerOkSearchOnAction(ActionEvent event) {
+        // TODO
+    }
+
+    @FXML
+    void btnLogoutOnAction(ActionEvent event) {
+        // TODO
+    }
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
-
+        // TODO
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadDateTime();
-        loadComboBoxData();
-
-        comboCustomer.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            if (t1 != null){
-                setCustomerData(t1);
-            }
-        });
-
-        comboItem.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            if (t1 != null){
-                setItemData(t1);
-            }
-        });
+    @FXML
+    void btnProductsOkSearchOnAction(ActionEvent event) {
+        // TODO
     }
 
-    private void loadDateTime(){
-        SimpleDateFormat f = new SimpleDateFormat("yyy-MM-dd");
-        lblDate.setText(f.format(new Date()));
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            LocalTime now = LocalTime.now();
-            lblTime.setText(String.format("%02d:%02d:%02d", now.getHour(), now.getMinute(), now.getSecond()));
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-    }
-
-    private void loadComboBoxData(){
-        comboCustomer.setItems(CustomerControllerImpl.getInstance().getCustomerIDs());
-        comboItem.setItems(ItemControllerImpl.getInstance().getProductCodes());
-    }
-
-    private void setCustomerData(String id){
-        Customer customer = CustomerControllerImpl.getInstance().getCustomer(id);
-        lblCName.setText(customer.getId() + ". " + customer.getName());
-        lblCAddress.setText(customer.getAddress());
-    }
-
-    private void setItemData(String id){
-        Item item = ItemControllerImpl.getInstance().getItem(id);
-        lblDescription.setText(item.getDescription());
-        lblStock.setText(item.getQtnInHand().toString());
+    @FXML
+    void txtSearchTyped(KeyEvent event) {
+        // TODO
     }
 }

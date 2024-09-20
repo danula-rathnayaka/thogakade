@@ -3,21 +3,19 @@ package controller.customer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Customer;
+import util.ShowAlert;
 
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -87,7 +85,7 @@ public class CustomerDataController implements Initializable {
 
         try {
             if (isAdd? CustomerControllerImpl.getInstance().addCustomer(customer) : CustomerControllerImpl.getInstance().updateCustomer(customer)) {
-                showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
+                ShowAlert.customAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {
                     Arrays.asList(txtId, txtName, txtSalary, txtAddress, txtCity, txtProvince, txtPostalCode).forEach(JFXTextField::clear);
@@ -99,18 +97,18 @@ public class CustomerDataController implements Initializable {
                 }
 
             } else {
-                showAlert("Error", "Could not update the Database.\nPlease reload the table.", Alert.AlertType.ERROR);
+                ShowAlert.customAlert("Error", "Could not update the Database.\nPlease reload the table.", Alert.AlertType.ERROR);
             }
         } catch (SQLIntegrityConstraintViolationException e) {
-            showAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
+            ShowAlert.customAlert("Item Code Error", "Enter a unique code for the item.", Alert.AlertType.ERROR);
         }
     }
 
     void setCustomer(Customer customer) {
         isAdd = false;
 
-        lblTitle.setText("Update Product");
-        btnDone.setText("Update Product");
+        lblTitle.setText("Update Customer");
+        btnDone.setText("Update Customer");
 
         txtId.setText(customer.getId().substring(1));
         comboTitle.setValue(customer.getTitle());
@@ -158,18 +156,11 @@ public class CustomerDataController implements Initializable {
 
 
         if (!errorMsg.isEmpty()) {
-            showAlert("Validation Error", errorMsg, Alert.AlertType.ERROR);
+            ShowAlert.customAlert("Validation Error", errorMsg, Alert.AlertType.ERROR);
             return false;
         } else {
             return true;
         }
-    }
-
-    private void showAlert(String title, String errorMsg, Alert.AlertType type) {
-        Alert alert = new Alert(type, errorMsg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 
     @Override

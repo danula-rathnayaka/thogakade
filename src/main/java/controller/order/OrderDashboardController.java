@@ -90,7 +90,6 @@
 package controller.order;
 
 import controller.customer.CustomerControllerImpl;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -101,7 +100,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import model.Customer;
 import model.Order;
-import model.OrderedProduct;
+import model.CartProducts;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -182,13 +181,13 @@ public class OrderDashboardController implements Initializable {
     private TableView<Order> tblOrder;
 
     @FXML
-    private TableView<OrderedProduct> tblOrderProducts;
+    private TableView<CartProducts> tblOrderProducts;
 
     @FXML
     private TextField txtSearch;
 
     private ObservableList<Order> orderList;
-    private ObservableList<OrderedProduct> orderedProductsList;
+    private ObservableList<CartProducts> orderedProductsList;
 
     @FXML
     void btnCancelSearchOnAction(ActionEvent event) {
@@ -225,18 +224,17 @@ public class OrderDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("orderQty"));
-        colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+        TableColumn<?, ?>[] productCols = new TableColumn<?, ?>[] {colCode, colDescription, colPackSize, colPrice, colQty, colDiscount};
+        String[] productColNames = new String[] {"itemCode", "description", "packSize", "unitPrice", "orderQty", "discount"};
+        for (int i = 0; i < productCols.length; i++) {
+            productCols[i].setCellValueFactory(new PropertyValueFactory<>(productColNames[i]));
+        }
 
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("custId"));
-        colOrderDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        colTotalDiscount.setCellValueFactory(new PropertyValueFactory<>("totDiscount"));
-        colBillTotal.setCellValueFactory(new PropertyValueFactory<>("billTotal"));
+        TableColumn<?, ?>[] orderCol = new TableColumn<?, ?>[] {colOrderId, colCustomerId, colOrderDate, colTotalDiscount, colBillTotal};
+        String[] orderColNames = new String[] {"id", "custId", "date", "totDiscount", "billTotal"};
+        for (int i = 0; i < orderCol.length; i++) {
+            orderCol[i].setCellValueFactory(new PropertyValueFactory<>(orderColNames[i]));
+        }
 
         loadData();
 
@@ -266,4 +264,3 @@ public class OrderDashboardController implements Initializable {
         tblOrder.setItems(orderList);
     }
 }
-

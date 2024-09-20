@@ -16,6 +16,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Customer;
+import util.ShowAlert;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -82,11 +84,6 @@ public class CustomerDashboardController implements Initializable {
     private Customer selectedData;
 
     @FXML
-    void btnAddOnAction(ActionEvent event) {
-        loadCustomerDataForm(null);
-    }
-
-    @FXML
     void btnDeleteOnAction(ActionEvent event) {
         deleteCustomer();
     }
@@ -107,20 +104,55 @@ public class CustomerDashboardController implements Initializable {
     }
 
     private void deleteCustomer(){
-        if(showConfirmationDialog("delete")){
+        if (
+                ShowAlert.showConfirmationDialog("Are you sure you want to Delete this? %n%nCode: %s%nTitle: %s%nName: %s%nDate of Birth: %s%nSalary: %s%nAddress: %s%nCity: %s%nProvince: %s%nPostal Code: %s".formatted(
+                        selectedData.getId(),
+                        selectedData.getTitle(),
+                        selectedData.getName(),
+                        selectedData.getDob(),
+                        selectedData.getSalary(),
+                        selectedData.getAddress(),
+                        selectedData.getCity(),
+                        selectedData.getProvince(),
+                        selectedData.getPostalCode()))
+        ){
             if (CustomerControllerImpl.getInstance().deleteCustomer(selectedData.getId())) {
-                showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
+                ShowAlert.customAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
                 loadData();
             } else {
-                showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
+                ShowAlert.customAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
             }
         }
     }
 
     private void editCustomer() {
-        if (showConfirmationDialog("edit")) {
-            loadCustomerDataForm(selectedData);
+        if (
+                ShowAlert.showConfirmationDialog("Are you sure you want to Edit this? %n%nCode: %s%nTitle: %s%nName: %s%nDate of Birth: %s%nSalary: %s%nAddress: %s%nCity: %s%nProvince: %s%nPostal Code: %s".formatted(
+                selectedData.getId(),
+                selectedData.getTitle(),
+                selectedData.getName(),
+                selectedData.getDob(),
+                selectedData.getSalary(),
+                selectedData.getAddress(),
+                selectedData.getCity(),
+                selectedData.getProvince(),
+                selectedData.getPostalCode()))
+        ){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer/data_form.fxml"));
+                Parent root = loader.load();
+
+                CustomerDataController controller = loader.getController();
+                controller.setCustomer(selectedData);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                ShowAlert.fileNotFoundError();
+            }
         }
     }
 
@@ -158,15 +190,12 @@ public class CustomerDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colDob.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        TableColumn<?, ?>[] cols = new TableColumn<?, ?>[] {colId, colTitle, colName, colDob, colSalary, colAddress, colCity, colProvince, colPostalCode};
+        String[] colNames = new String[] {"id", "title", "name", "dob", "salary", "address", "city", "province", "postalCode"};
+        for (int i = 0; i < cols.length; i++) {
+            cols[i].setCellValueFactory(new PropertyValueFactory<>(colNames[i]));
+        }
+
 
         loadData();
 
@@ -181,56 +210,5 @@ public class CustomerDashboardController implements Initializable {
     private void loadData(){
         customerList = CustomerControllerImpl.getInstance().getAllCustomers();
         tblCustomers.setItems(customerList);
-    }
-
-    private void loadCustomerDataForm(Customer customer){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer/data_form.fxml"));
-            Parent root = loader.load();
-
-            CustomerDataController controller = loader.getController();
-            if (customer != null) {
-                controller.setCustomer(customer);
-            }
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            showAlert("Error", "Could not load files.", Alert.AlertType.ERROR);
-        }
-    }
-
-    private boolean showConfirmationDialog(String operation) {
-        Alert alert = new Alert(
-                Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to %s this? %n%nCode: %s%nTitle: %s%nName: %s%nDate of Birth: %s%nSalary: %s%nAddress: %s%nCity: %s%nProvince: %s%nPostal Code: %s".formatted(
-                operation,
-                selectedData.getId(),
-                selectedData.getTitle(),
-                selectedData.getName(),
-                selectedData.getDob(),
-                selectedData.getSalary(),
-                selectedData.getAddress(),
-                selectedData.getCity(),
-                selectedData.getProvince(),
-                selectedData.getPostalCode()
-        )
-,
-                ButtonType.YES,
-                ButtonType.NO);
-
-        alert.setTitle("Conformation");
-        alert.setHeaderText(null);
-
-        ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
-        return result==ButtonType.YES;
-    }
-
-    private void showAlert(String title, String errorMsg, Alert.AlertType type) {
-        Alert alert = new Alert(type, errorMsg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 }

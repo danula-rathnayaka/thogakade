@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Customer;
 import util.CrudUtil;
+import util.ShowAlert;
+
 import java.sql.*;
 
 public class CustomerControllerImpl implements CustomerController{
@@ -23,7 +25,7 @@ public class CustomerControllerImpl implements CustomerController{
         try {
             return CrudUtil.execute("DELETE FROM customer WHERE CustID = ?", id);
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -36,21 +38,20 @@ public class CustomerControllerImpl implements CustomerController{
 
             while (rst.next()){
                 customerList.add(new Customer(
-                        rst.getString(1),
-                        rst.getString(2),
-                        rst.getString(3),
-                        rst.getDate(4).toLocalDate(),
-                        rst.getDouble(5),
-                        rst.getString(6),
-                        rst.getString(7),
-                        rst.getString(8),
-                        rst.getString(9)
+                        rst.getString("CustID"),
+                        rst.getString("CustTitle"),
+                        rst.getString("CustName"),
+                        rst.getDate("DOB").toLocalDate(),
+                        rst.getDouble("salary"),
+                        rst.getString("CustAddress"),
+                        rst.getString("City"),
+                        rst.getString("Province"),
+                        rst.getString("PostalCode")
                 ));
             }
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
         }
-
         return customerList;
     }
 
@@ -71,7 +72,7 @@ public class CustomerControllerImpl implements CustomerController{
         } catch (SQLIntegrityConstraintViolationException e){
             throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -93,7 +94,7 @@ public class CustomerControllerImpl implements CustomerController{
         } catch (SQLIntegrityConstraintViolationException e){
             throw new SQLIntegrityConstraintViolationException();
         } catch (SQLException e) {
-            showErrorAlert();
+            ShowAlert.databaseError();
             return false;
         }
     }
@@ -113,26 +114,19 @@ public class CustomerControllerImpl implements CustomerController{
             rst.next();
 
             return new Customer(
-                    rst.getString(1),
-                    rst.getString(2),
-                    rst.getString(3),
-                    rst.getDate(4).toLocalDate(),
-                    rst.getDouble(5),
-                    rst.getString(6),
-                    rst.getString(7),
-                    rst.getString(8),
-                    rst.getString(9)
+                    rst.getString("CustID"),
+                    rst.getString("CustTitle"),
+                    rst.getString("CustName"),
+                    rst.getDate("DOB").toLocalDate(),
+                    rst.getDouble("salary"),
+                    rst.getString("CustAddress"),
+                    rst.getString("City"),
+                    rst.getString("Province"),
+                    rst.getString("PostalCode")
             );
         } catch (SQLException e){
-            showErrorAlert();
+            ShowAlert.databaseError();
             return new Customer();
         }
-    }
-
-    private void showErrorAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect the Database.", ButtonType.OK);
-        alert.setTitle("Error Occurred.");
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 }

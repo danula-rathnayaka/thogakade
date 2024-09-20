@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customer.CustomerDashboardController">
+<AnchorPane prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.user.UserDashboardFormController">
    <children>
-      <Label layoutX="61.0" layoutY="50.0" prefHeight="35.0" prefWidth="125.0" text="Customer" textFill="#6a6a6a">
+      <Label layoutX="61.0" layoutY="50.0" prefHeight="35.0" prefWidth="125.0" text="Users" textFill="#6a6a6a">
          <font>
             <Font name="Poppins SemiBold" size="24.0" />
          </font>
@@ -45,17 +45,14 @@
             </ImageView>
          </children>
       </Group>
-      <TableView fx:id="tblCustomers" layoutX="61.0" layoutY="118.0" prefHeight="580.0" prefWidth="1162.0">
+      <TableView fx:id="tblUsers" layoutX="61.0" layoutY="118.0" prefHeight="580.0" prefWidth="1162.0">
         <columns>
-          <TableColumn fx:id="colId" editable="false" prefWidth="62.933345794677734" resizable="false" styleClass="table-row-cell" text="ID" />
-            <TableColumn fx:id="colTitle" editable="false" prefWidth="55.199981689453125" resizable="false" styleClass="table-row-cell" text="TITLE" />
-          <TableColumn fx:id="colName" editable="false" prefWidth="116.79997253417969" resizable="false" styleClass="table-row-cell" text="NAME" />
-            <TableColumn fx:id="colDob" editable="false" prefWidth="135.46673583984375" resizable="false" styleClass="table-row-cell" text="DOB" />
-            <TableColumn fx:id="colSalary" editable="false" prefWidth="142.39996337890625" resizable="false" styleClass="table-row-cell" text="SALARY" />
-            <TableColumn fx:id="colAddress" editable="false" prefWidth="185.3333740234375" resizable="false" styleClass="table-row-cell" text="ADDRESS" />
-            <TableColumn fx:id="colCity" editable="false" prefWidth="169.5999755859375" resizable="false" styleClass="table-row-cell" text="CITY" />
-            <TableColumn fx:id="colProvince" editable="false" prefWidth="172.00006103515625" resizable="false" styleClass="table-row-cell" text="PROVINCE" />
-            <TableColumn fx:id="colPostalCode" editable="false" prefWidth="159.7333984375" resizable="false" styleClass="table-row-cell" text="P/C" />
+          <TableColumn fx:id="colId" editable="false" prefWidth="97.33333587646484" resizable="false" styleClass="table-row-cell" text="ID" />
+            <TableColumn fx:id="colUserName" editable="false" prefWidth="217.33338928222656" resizable="false" styleClass="table-row-cell" text="USERNAME" />
+            <TableColumn fx:id="colName" editable="false" prefWidth="209.06658935546875" resizable="false" styleClass="table-row-cell" text="NAME" />
+            <TableColumn fx:id="colRole" editable="false" prefWidth="163.466552734375" resizable="false" styleClass="table-row-cell" text="ROLE" />
+            <TableColumn fx:id="colLastLogin" editable="false" prefWidth="240.800048828125" resizable="false" styleClass="table-row-cell" text="LAST LOGIN" />
+            <TableColumn fx:id="colLastLogout" editable="false" prefWidth="236.0" resizable="false" styleClass="table-row-cell" text="LAST LOGOUT" />
         </columns>
       </TableView>
       <HBox alignment="TOP_RIGHT" layoutX="888.0" layoutY="50.0" prefHeight="40.0" prefWidth="333.0" spacing="15.0">
@@ -90,6 +87,20 @@
                         </ImageView>
                      </children>
                   </Group>
+               </children>
+            </Group>
+            <Group layoutX="125.0" layoutY="10.0">
+               <children>
+                  <JFXButton onAction="#btnAddOnAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-background-color: #8946A6;" text="     Add" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins SemiBold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="22.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/plus.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Group>
          </children>

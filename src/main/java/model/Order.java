@@ -2,15 +2,16 @@ package model;
 
 import lombok.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Order {
     private String id;
-    private String custId;
     private LocalDate date;
-    private Integer totDiscount;
-    private Double billTotal;
+    private String custId;
+    private List<OrderProducts> orderProducts;
 }

@@ -1,8 +1,6 @@
 package controller.item;
 
 import com.jfoenix.controls.JFXButton;
-import db.DBConnection;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,11 +16,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Item;
+import util.ShowAlert;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ItemDashboardController implements Initializable {
@@ -88,19 +85,33 @@ public class ItemDashboardController implements Initializable {
     }
 
     private void deleteItem() {
-        if (showConfirmationDialog("delete")) {
+        if (
+                ShowAlert.showConfirmationDialog("Are you sure you want to Delete this. %n%nCode: %s%nDescription: %s%nPack Size: %s%nUnit Price: %s%nQtn In Hand: %d".formatted(
+                selectedData.getCode(),
+                selectedData.getDescription(),
+                selectedData.getPackSize(),
+                selectedData.getUnitPrice(),
+                selectedData.getQtnInHand()))
+        ) {
             if (ItemControllerImpl.getInstance().deleteItem(selectedData.getCode())) {
-                showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
+                ShowAlert.customAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
                 loadData();
             } else {
-                showAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
+                ShowAlert.customAlert("Error", "Could not Delete.", Alert.AlertType.ERROR);
             }
         }
     }
 
     private void editItem() {
-        if (showConfirmationDialog("edit")) {
+        if (
+                ShowAlert.showConfirmationDialog("Are you sure you want to Edit this. %n%nCode: %s%nDescription: %s%nPack Size: %s%nUnit Price: %s%nQtn In Hand: %d".formatted(
+                selectedData.getCode(),
+                selectedData.getDescription(),
+                selectedData.getPackSize(),
+                selectedData.getUnitPrice(),
+                selectedData.getQtnInHand()))
+        ) {
             loadItemDataForm(selectedData);
         }
     }
@@ -139,11 +150,11 @@ public class ItemDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colItemCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-        colDsc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        colQtnOnHand.setCellValueFactory(new PropertyValueFactory<>("qtnInHand"));
+        TableColumn<?, ?>[] cols = new TableColumn<?, ?>[] {colItemCode, colDsc, colPackSize, colUnitPrice, colQtnOnHand};
+        String[] colNames = new String[] {"code", "description", "packSize", "unitPrice", "qtnInHand"};
+        for (int i = 0; i < cols.length; i++) {
+            cols[i].setCellValueFactory(new PropertyValueFactory<>(colNames[i]));
+        }
 
         loadData();
 
@@ -174,35 +185,8 @@ public class ItemDashboardController implements Initializable {
             stage.show();
 
         } catch (IOException e) {
-            showAlert("Error", "Could not load files.", Alert.AlertType.ERROR);
+            ShowAlert.fileNotFoundError();
         }
     }
 
-    private boolean showConfirmationDialog(String operation) {
-        Alert alert = new Alert(
-                Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to %s this. %n%nCode: %s%nDescription: %s%nPack Size: %s%nUnit Price: %s%nQtn In Hand: %d".formatted(
-                        operation,
-                        selectedData.getCode(),
-                        selectedData.getDescription(),
-                        selectedData.getPackSize(),
-                        selectedData.getUnitPrice(),
-                        selectedData.getQtnInHand()
-                ),
-                ButtonType.YES,
-                ButtonType.NO);
-
-        alert.setTitle("Conformation");
-        alert.setHeaderText(null);
-
-        ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
-        return result == ButtonType.YES;
-    }
-
-    private void showAlert(String title, String errorMsg, Alert.AlertType type) {
-        Alert alert = new Alert(type, errorMsg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
 }

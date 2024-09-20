@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.OrderDashboardController">
@@ -69,22 +70,22 @@
             </ImageView>
          </children>
       </Group>
-      <TableView fx:id="tblOrderProducts" layoutX="690.0" layoutY="404.0" prefHeight="293.0" prefWidth="526.0" stylesheets="@../../css/TableViewStylesMini.css">
+      <TableView fx:id="tblOrderProducts" layoutX="717.0" layoutY="412.0" prefHeight="286.0" prefWidth="510.0" stylesheets="@../../css/TableViewStylesMini.css">
          <columns>
-            <TableColumn fx:id="colCode" prefWidth="53.60003662109375" style="-fx-font-size: 12;" text="ID" />
-            <TableColumn fx:id="colDescription" prefWidth="158.4000244140625" style="-fx-font-size: 12;" text="DESCRIPTION" />
-            <TableColumn fx:id="colPackSize" prefWidth="77.60003662109375" style="-fx-font-size: 12;" text="PACK SIZE" />
-            <TableColumn fx:id="colPrice" prefWidth="78.39996337890625" style="-fx-font-size: 12;" text="UNIT PRICE" />
-            <TableColumn fx:id="colQty" minWidth="6.39990234375" prefWidth="80.7998046875" style="-fx-font-size: 12;" text="ORDER QTY" />
-            <TableColumn fx:id="colDiscount" prefWidth="70.39990234375" style="-fx-font-size: 12;" text="DISCOUNT" />
+            <TableColumn fx:id="colCode" prefWidth="60.79998779296875" style="-fx-font-size: 12;" text="ID" />
+            <TableColumn fx:id="colDescription" prefWidth="166.93328857421875" style="-fx-font-size: 12;" text="DESCRIPTION" />
+            <TableColumn fx:id="colPackSize" prefWidth="74.66668701171875" style="-fx-font-size: 12;" text="PACK SIZE" />
+            <TableColumn fx:id="colPrice" prefWidth="77.8665771484375" style="-fx-font-size: 12;" text="UNIT PRICE" />
+            <TableColumn fx:id="colQty" minWidth="6.39990234375" prefWidth="50.4000244140625" style="-fx-font-size: 12;" text="QTY" />
+            <TableColumn fx:id="colDiscount" prefWidth="75.199951171875" style="-fx-font-size: 12;" text="DISCOUNT" />
          </columns>
       </TableView>
-      <Label layoutX="707.0" layoutY="135.0" text="Customer Details" textFill="#6a6a6a">
+      <Label layoutX="725.0" layoutY="123.0" text="Customer Details" textFill="#6a6a6a">
          <font>
             <Font name="Poppins SemiBold" size="18.0" />
          </font>
       </Label>
-      <HBox layoutX="725.0" layoutY="175.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
+      <HBox layoutX="743.0" layoutY="164.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
          <children>
             <HBox prefHeight="78.0" prefWidth="217.0">
                <children>
@@ -210,12 +211,12 @@
             </HBox>
          </children>
       </HBox>
-      <Label layoutX="707.0" layoutY="268.0" text="Order Details" textFill="#6a6a6a">
+      <Label layoutX="725.0" layoutY="262.0" text="Order Details" textFill="#6a6a6a">
          <font>
             <Font name="Poppins SemiBold" size="18.0" />
          </font>
       </Label>
-      <HBox layoutX="725.0" layoutY="311.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
+      <HBox layoutX="743.0" layoutY="305.0" prefHeight="78.0" prefWidth="475.0" spacing="20.0">
          <children>
             <HBox prefHeight="78.0" prefWidth="217.0">
                <children>
@@ -326,5 +327,6 @@
             </HBox>
          </children>
       </HBox>
+      <Line endX="23.0" endY="9.73333740234375" layoutX="676.0" layoutY="686.0" startX="23.0" startY="-564.13330078125" stroke="#69696926" />
    </children>
 </AnchorPane>
