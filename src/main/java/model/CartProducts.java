@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class CartProducts {
     private String itemCode;
     private String description;

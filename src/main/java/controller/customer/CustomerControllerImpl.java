@@ -111,7 +111,9 @@ public class CustomerControllerImpl implements CustomerController{
         try {
             ResultSet rst = CrudUtil.execute("SELECT CustID, CustTitle, CustName, DOB, salary, CustAddress, City, Province, PostalCode FROM customer WHERE CustID = '" + id + "';");
 
-            rst.next();
+            if(!rst.next()){
+                return null;
+            }
 
             return new Customer(
                     rst.getString("CustID"),

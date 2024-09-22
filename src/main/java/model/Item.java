@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Item {
     private String code;
     private String description;

@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.User;
+import util.ShowAlert;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -88,15 +89,7 @@ public class LoginFormController {
             stage.show();
 
         } catch (IOException e) {
-            showAlert("Error", "Could not load files.", Alert.AlertType.ERROR);
+            ShowAlert.fileNotFoundError();
         }
     }
-
-    private void showAlert(String title, String errorMsg, Alert.AlertType type) {
-        Alert alert = new Alert(type, errorMsg, ButtonType.OK);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
-
 }

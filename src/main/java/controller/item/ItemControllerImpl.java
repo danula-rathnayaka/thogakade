@@ -9,6 +9,7 @@ import model.OrderProducts;
 import util.CrudUtil;
 import util.ShowAlert;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -100,9 +101,11 @@ public class ItemControllerImpl implements ItemController{
     @Override
     public Item getItem(String code) {
         try {
-            ResultSet rst = CrudUtil.execute("SELECT ItemCode, Description, PackSize, UnitPrice, QtyOnHand FROM item WHERE ItemCode = '"+ code +"';");
+            ResultSet rst = CrudUtil.execute("SELECT ItemCode, Description, PackSize, UnitPrice, QtyOnHand FROM item WHERE ItemCode = '" + code + "';");
 
-            rst.next();
+            if(!rst.next()){
+                return null;
+            }
 
             return new Item(
                     rst.getString("ItemCode"),

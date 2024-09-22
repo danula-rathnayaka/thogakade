@@ -16,12 +16,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="790.0" prefWidth="1530.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.PlaceOrderFormController">
+<AnchorPane prefHeight="790.0" prefWidth="1530.0" style="-fx-background-color: white;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.PlaceOrderFormController">
    <children>
       <TableView fx:id="tblCart" layoutX="732.0" layoutY="73.0" prefHeight="600.0" prefWidth="783.0">
         <columns>
-          <TableColumn fx:id="colCode" prefWidth="81.60003662109375" text="Item Code" />
-          <TableColumn fx:id="colDescription" prefWidth="178.933349609375" text="Description" />
+          <TableColumn fx:id="colCode" prefWidth="89.59991455078125" text="Item Code" />
+          <TableColumn fx:id="colDescription" prefWidth="172.00006103515625" text="Description" />
             <TableColumn fx:id="colQty" prefWidth="71.4666748046875" text="QTY" />
             <TableColumn fx:id="colUnitPrice" prefWidth="119.733154296875" text="Unit Price" />
             <TableColumn fx:id="colNetTotal" prefWidth="126.4000244140625" text="Net Total" />
@@ -29,11 +29,38 @@
             <TableColumn fx:id="colTotal" prefWidth="98.9334716796875" text="Total" />
         </columns>
       </TableView>
-      <JFXButton layoutX="1355.0" layoutY="710.0" onAction="#btnPlaceOrderOnAction" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #8946A6; -fx-background-radius: 40;" text="       Place Order" textFill="WHITE">
-         <font>
-            <Font name="Poppins SemiBold" size="16.0" />
-         </font>
-      </JFXButton>
+      <HBox layoutX="1114.0" layoutY="710.0" spacing="40.0">
+         <children>
+            <Group>
+               <children>
+                  <JFXButton onAction="#btnCancelOrderOnAction" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-border-color: #8946A6; -fx-border-radius: 40;" text="       Cancel Order" textFill="#6a6a6a">
+                     <font>
+                        <Font name="Poppins SemiBold" size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="18.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/cancel.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <JFXButton onAction="#btnPlaceOrderOnAction" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #8946A6; -fx-background-radius: 40;" text="       Place Order" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins SemiBold" size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="18.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/place_order.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
+         </children>
+      </HBox>
       <Line endX="1074.5" endY="-36.400001525878906" layoutX="457.0" layoutY="90.0" startX="-457.0" startY="-36.400001525878906" />
       <HBox layoutX="1133.0" layoutY="7.0" prefHeight="40.0" prefWidth="176.0" spacing="10.0">
          <children>
@@ -52,7 +79,7 @@
             </Label>
          </children>
       </HBox>
-      <VBox layoutX="1047.0" layoutY="687.0" prefHeight="90.0" prefWidth="267.0" spacing="10.0">
+      <VBox layoutX="779.0" layoutY="687.0" prefHeight="90.0" prefWidth="267.0" spacing="10.0">
          <children>
             <HBox prefHeight="24.0" prefWidth="182.0" spacing="10.0">
                <children>
@@ -61,7 +88,7 @@
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblNetTotal" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs 0" textAlignment="RIGHT">
+                  <Label fx:id="lblNetTotal" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs. 0" textAlignment="RIGHT">
                      <font>
                         <Font name="Poppins Medium" size="15.0" />
                      </font>
@@ -75,7 +102,7 @@
                         <Font name="Poppins Medium" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblTotalDiscount" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs 0" textAlignment="RIGHT">
+                  <Label fx:id="lblTotalDiscount" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs. 0" textAlignment="RIGHT">
                      <font>
                         <Font name="Poppins Medium" size="15.0" />
                      </font>
@@ -89,41 +116,9 @@
                         <Font name="Poppins SemiBold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblGrandTotal" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs 0" textAlignment="RIGHT">
+                  <Label fx:id="lblGrandTotal" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="180.0" text="Rs. 0" textAlignment="RIGHT">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox layoutX="741.0" layoutY="701.0" prefHeight="57.0" prefWidth="256.0" spacing="10.0">
-         <children>
-            <HBox prefHeight="24.0" prefWidth="182.0" spacing="10.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="112.0" text="No. of Items:">
-                     <font>
-                        <Font name="Poppins Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblNoItems" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="183.0" text="0" textAlignment="RIGHT">
-                     <font>
-                        <Font name="Poppins Medium" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="24.0" prefWidth="182.0" spacing="10.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="162.0" text="No. of Products:">
-                     <font>
-                        <Font name="Poppins Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblNoProducts" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="178.0" text="0" textAlignment="RIGHT">
-                     <font>
-                        <Font name="Poppins Medium" size="15.0" />
                      </font>
                   </Label>
                </children>
@@ -163,21 +158,21 @@
          <children>
             <Label layoutX="250.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
             <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
-            <TextField fx:id="txtProductSearch" layoutX="36.0" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+            <TextField fx:id="txtProductSearch" layoutX="36.0" onAction="#btnProductsOkSearchOnAction" onKeyTyped="#txtProductKeyPressed" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;" text="P">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </TextField>
-            <JFXButton layoutX="280.0" layoutY="6.0" onAction="#btnProductsOkSearchOnAction" prefHeight="28.0" prefWidth="27.0" text=" ">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </JFXButton>
             <ImageView fx:id="imgProductOk" fitHeight="25.0" fitWidth="29.0" layoutX="281.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../../img/done.png" />
                </image>
             </ImageView>
+            <JFXButton fx:id="btnProductOk" layoutX="280.0" layoutY="6.0" onAction="#btnProductsOkSearchOnAction" prefHeight="28.0" prefWidth="27.0" text=" ">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </JFXButton>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/search.png" />
@@ -192,14 +187,14 @@
       </Label>
       <HBox layoutX="68.0" layoutY="542.0" prefHeight="114.0" prefWidth="349.0" spacing="10.0">
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="196.0" prefWidth="116.0" spacing="20.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="196.0" prefWidth="161.0" spacing="20.0">
                <children>
                   <Label layoutX="10.0" layoutY="10.0" text="Product code">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label text="Product name">
+                  <Label text="Product Description">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
@@ -252,27 +247,27 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="165.0" spacing="20.0">
                <children>
-                  <Label fx:id="lblPCode" layoutX="10.0" layoutY="10.0" text="P001">
+                  <Label fx:id="lblPCode" layoutX="10.0" layoutY="10.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPName" text="Keerisamba Retail">
+                  <Label fx:id="lblPDescription">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPPackSize" layoutX="10.0" layoutY="10.0" text="1Kg">
+                  <Label fx:id="lblPPackSize" layoutX="10.0" layoutY="10.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPUnitPrice" layoutX="10.0" layoutY="70.0" text="105.00">
+                  <Label fx:id="lblPUnitPrice" layoutX="10.0" layoutY="70.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPQtyOnHand" layoutX="10.0" layoutY="96.0" text="3000">
+                  <Label fx:id="lblPQtyOnHand" layoutX="10.0" layoutY="96.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
@@ -281,7 +276,7 @@
             </VBox>
          </children>
       </HBox>
-      <Group layoutX="391.0" layoutY="644.0" translateZ="27.0">
+      <Group layoutX="424.0" layoutY="644.0" translateZ="27.0">
          <children>
             <HBox prefHeight="30.0" prefWidth="208.0" spacing="10.0">
                <children>
@@ -290,7 +285,7 @@
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="txtPQtyOrdered" prefHeight="26.0" prefWidth="100.0" />
+                  <JFXTextField fx:id="txtPQtyOrdered" onAction="#btnAddToCartOnAction" prefHeight="26.0" prefWidth="100.0" />
                </children>
             </HBox>
             <JFXButton alignment="CENTER" layoutX="25.0" layoutY="50.0" onAction="#btnAddToCartOnAction" prefHeight="40.0" prefWidth="161.0" style="-fx-background-color: #8946A6; -fx-background-radius: 40;" text="     Add to Cart" textFill="WHITE">
@@ -311,21 +306,21 @@
                <children>
                   <Label layoutX="250.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
                   <Label prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 50;" />
-                  <TextField fx:id="txtCustomerSearch" layoutX="38.0" layoutY="1.0" onKeyTyped="#txtSearchTyped" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;">
+                  <TextField fx:id="txtCustomerSearch" layoutX="38.0" layoutY="1.0" onAction="#btnCustomerOkSearchOnAction" onKeyTyped="#txtCustomerKeyPressed" prefHeight="40.0" prefWidth="250.0" promptText="Search..." style="-fx-background-radius: 50px; -fx-padding: 5; -fx-background-color: #F4F5F7;" text="C">
                      <font>
                         <Font name="Poppins Regular" size="14.0" />
                      </font>
                   </TextField>
-                  <JFXButton layoutX="280.0" layoutY="6.0" onAction="#btnCustomerOkSearchOnAction" prefHeight="28.0" prefWidth="27.0" text=" ">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
                   <ImageView fx:id="imgCustomerOk" fitHeight="25.0" fitWidth="29.0" layoutX="281.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
                         <Image url="@../../img/done.png" />
                      </image>
                   </ImageView>
+                  <JFXButton fx:id="btnCustomerOk" layoutX="280.0" layoutY="6.0" onAction="#btnCustomerOkSearchOnAction" prefHeight="28.0" prefWidth="27.0" text=" ">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
                   <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/search.png" />
@@ -416,27 +411,27 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="196.0" prefWidth="281.0" spacing="20.0">
                <children>
-                  <Label fx:id="lblCId" layoutX="10.0" layoutY="10.0" text="P001">
+                  <Label fx:id="lblCId" layoutX="10.0" layoutY="10.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCName" text="Keerisamba Retail">
+                  <Label fx:id="lblCName">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCDob" layoutX="10.0" layoutY="10.0" text="1Kg">
+                  <Label fx:id="lblCDob" layoutX="10.0" layoutY="10.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCContact" layoutX="10.0" layoutY="70.0" text="105.00">
+                  <Label fx:id="lblCContact" layoutX="10.0" layoutY="70.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCAddress" layoutX="10.0" layoutY="96.0" text="3000">
+                  <Label fx:id="lblCAddress" layoutX="10.0" layoutY="96.0">
                      <font>
                         <Font name="Poppins Medium" size="16.0" />
                      </font>
@@ -445,14 +440,9 @@
             </VBox>
          </children>
       </HBox>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="1373.0" layoutY="723.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/place_order.png" />
-         </image>
-      </ImageView>
       <Group layoutX="1377.0" layoutY="7.0">
          <children>
-            <JFXButton layoutY="2.0" onAction="#btnLogoutOnAction" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 40; -fx-background-color: white; -fx-border-color: #8946A6; -fx-border-radius: 40; -fx-border-width: 1;" text="       Logout" textFill="#6a6a6a">
+            <JFXButton layoutY="2.0" onAction="#btnLogoutOnAction" prefHeight="36.0" prefWidth="101.0" style="-fx-background-radius: 40; -fx-background-color: white; -fx-border-color: #8946A6; -fx-border-radius: 40;" text="       Logout" textFill="#6a6a6a">
                <font>
                   <Font name="Poppins Medium" size="14.0" />
                </font>
