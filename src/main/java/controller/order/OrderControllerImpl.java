@@ -1,12 +1,12 @@
 package controller.order;
 
+import controller.item.ItemControllerImpl;
 import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import model.Order;
 import model.CartProducts;
+import model.Order;
+import model.OrderProducts;
 import util.CrudUtil;
 import util.ShowAlert;
 
@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class OrderControllerImpl implements OrderController{
 
@@ -29,18 +30,39 @@ public class OrderControllerImpl implements OrderController{
     public ObservableList<Order> getAllOrders() {
         ObservableList<Order> orderList = FXCollections.observableArrayList();
         try {
-            ResultSet rst = CrudUtil.execute("SELECT od.OrderID, cus.CustID, od.OrderDate, sum(orinfo.Discount) FROM orders od JOIN customer cus ON od.CustID = cus.CustID JOIN orderdetail orinfo ON od.OrderID = orinfo.OrderID GROUP BY orinfo.OrderID;");
+            ResultSet rst = CrudUtil.execute("SELECT OrderId, OrderDate, CustId from orders;");
 
-//            while (rst.next()){
-//                orderList.add(new Order(
-//                        rst.getString(1),
-//                        rst.getString(2),
-//                        rst.getDate(3).toLocalDate(),
-//                        rst.getInt(4),
-////                      rst.getDouble(5)
-//                        1000.00
-//                ));
-//            }
+            while (rst.next()) {
+                String orderId = rst.getString("OrderId");
+                ObservableList<CartProducts> orderProducts = OrderControllerImpl.getInstance().getOrderedProducts(orderId);
+                ArrayList<OrderProducts> orderProductsList = new ArrayList<>();
+
+                Double totDiscount = 0.0;
+                Double total = 0.0;
+
+                for (int i = 0; i < orderProducts.size(); i++) {
+                    totDiscount += orderProducts.get(i).getDiscount();
+                    total += orderProducts.get(i).getTotal();
+
+                    orderProductsList.add(
+                            new OrderProducts(
+                                    orderId,
+                                    orderProducts.get(i).getItemCode(),
+                                    orderProducts.get(i).getOrderQty(),
+                                    0.0)
+                    );
+                }
+
+
+                orderList.add(new Order(
+                        orderId,
+                        rst.getDate("OrderDate").toLocalDate(),
+                        rst.getString("CustId"),
+                        totDiscount,
+                        total,
+                        orderProductsList
+                ));
+            }
         } catch (SQLException e) {
             ShowAlert.databaseError();
         }
@@ -49,25 +71,29 @@ public class OrderControllerImpl implements OrderController{
     }
 
     @Override
-    public boolean placeOrder(Order order){
-        try {
-            Connection conn = DBConnection.getInstance().getConnection();
+    public boolean placeOrder(Order order) throws SQLException {
+        Connection conn = DBConnection.getInstance().getConnection();
 
-            PreparedStatement psTm = conn.prepareStatement("INSERT INTO orders VALUES(?, ?, ?);");
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement psTm = conn.prepareStatement("INSERT INTO orders VALUES(?,?,?);");
             psTm.setObject(1, order.getId());
             psTm.setObject(2, order.getDate());
             psTm.setObject(3, order.getCustId());
-
-            boolean isOrderAdded = psTm.executeUpdate() > 0;
-            if (isOrderAdded){
-                boolean isOrderProductsAdded = new OrderDetailControllerImpl().addOrderDetail(order.getOrderProducts());
-                // TODO
+            if (psTm.executeUpdate() > 0) {
+                boolean isOrderProductsAdded = OrderDetailControllerImpl.getInstance().addOrderProduct(order.getOrderProducts());
+                if (isOrderProductsAdded) {
+                    if (ItemControllerImpl.getInstance().updateStock(order.getOrderProducts())) {
+                        conn.commit();
+                        return true;
+                    }
+                }
             }
-        } catch (SQLException e) {
-            ShowAlert.databaseError();
+            conn.rollback();
             return false;
+        } finally {
+            conn.setAutoCommit(true);
         }
-        return true;
     }
 
     @Override
@@ -75,17 +101,20 @@ public class OrderControllerImpl implements OrderController{
         ObservableList<CartProducts> cartProducts = FXCollections.observableArrayList();
         ResultSet rst = CrudUtil.execute("SELECT ordinfo.ItemCode, item.Description, item.PackSize, item.UnitPrice, ordinfo.OrderQTY, ordinfo.Discount FROM orderdetail ordinfo join item on ordinfo.ItemCode = item.ItemCode WHERE ordinfo.OrderID = '"+ id +"';");
 
-//        while (rst.next()){
-//            cartProducts.add(new CartProducts(
-//                    rst.getString("ItemCode"),
-//                    rst.getString("Description"),
-//                    rst.getString("OrderQTY"),
-//                    rst.getDouble("UnitPrice"),
-//                    rst.getInt(""),
-//                    rst.getInt("")
-//
-//            ));
-//        }
+        while (rst.next()) {
+            Integer orderQty = rst.getInt("OrderQTY");
+            Double unitPrice = rst.getDouble("UnitPrice");
+            cartProducts.add(new CartProducts(
+                    rst.getString("ItemCode"),
+                    rst.getString("Description"),
+                    rst.getString("PackSize"),
+                    orderQty,
+                    unitPrice,
+                    unitPrice * orderQty,
+                    rst.getDouble("Discount"),
+                    (unitPrice * orderQty) - rst.getDouble("Discount")
+            ));
+        }
         return cartProducts;
     }
 }

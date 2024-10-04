@@ -1,8 +1,8 @@
 package controller.order;
 
 import javafx.collections.ObservableList;
-import model.Order;
 import model.CartProducts;
+import model.Order;
 
 import java.sql.SQLException;
 

@@ -94,13 +94,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import model.CartProducts;
 import model.Customer;
 import model.Order;
-import model.CartProducts;
+import util.ShowAlert;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -122,6 +126,12 @@ public class OrderDashboardController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colDiscount;
+
+    @FXML
+    private TableColumn<?, ?> colTotal;
+
+    @FXML
+    private TableColumn<?, ?> colNetTotal;
 
     @FXML
     private TableColumn<?, ?> colOrderDate;
@@ -224,8 +234,8 @@ public class OrderDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TableColumn<?, ?>[] productCols = new TableColumn<?, ?>[] {colCode, colDescription, colPackSize, colPrice, colQty, colDiscount};
-        String[] productColNames = new String[] {"itemCode", "description", "packSize", "unitPrice", "orderQty", "discount"};
+        TableColumn<?, ?>[] productCols = new TableColumn<?, ?>[]{colCode, colDescription, colPackSize, colPrice, colQty, colDiscount, colNetTotal, colTotal};
+        String[] productColNames = new String[]{"itemCode", "description", "packSize", "unitPrice", "orderQty", "discount", "netTotal", "total"};
         for (int i = 0; i < productCols.length; i++) {
             productCols[i].setCellValueFactory(new PropertyValueFactory<>(productColNames[i]));
         }
@@ -253,7 +263,7 @@ public class OrderDashboardController implements Initializable {
                     lblProvince.setText(orderCustomer.getProvince());
 
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    ShowAlert.databaseError();
                 }
             }
         });

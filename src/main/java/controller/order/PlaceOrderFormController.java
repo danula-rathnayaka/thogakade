@@ -3,7 +3,6 @@ package controller.order;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controller.customer.CustomerControllerImpl;
-import controller.customer.CustomerDataController;
 import controller.item.ItemControllerImpl;
 import controller.user.UserControllerImpl;
 import javafx.animation.Animation;
@@ -15,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,20 +21,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.CartProducts;
-import model.Customer;
-import model.Item;
-import model.User;
+import model.*;
 import util.ShowAlert;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -169,6 +165,7 @@ public class PlaceOrderFormController implements Initializable {
             cart.add(new CartProducts(
                     lblPCode.getText(),
                     lblPDescription.getText(),
+                    lblPPackSize.getText(),
                     pQtyOrdered,
                     pUnitPrice,
                     netTotal,
@@ -224,7 +221,34 @@ public class PlaceOrderFormController implements Initializable {
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
-        // TODO
+        ArrayList<OrderProducts> orderDetails = new ArrayList<>();
+        String orderId = "O999"; // To be replaced with actual order id generated
+        cart.forEach(cartProducts -> {
+            orderDetails.add(
+                    new OrderProducts(
+                            orderId,
+                            cartProducts.getItemCode(),
+                            cartProducts.getOrderQty(),
+                            0.0)
+            );
+        });
+        try {
+            boolean transactionSuccess = OrderControllerImpl.getInstance().placeOrder(new Order(
+                    orderId,
+                    LocalDate.parse(lblDate.getText()),
+                    lblCId.getText(),
+                    Double.parseDouble(lblTotalDiscount.getText()),
+                    Double.parseDouble(lblGrandTotal.getText()),
+                    orderDetails));
+
+            if (transactionSuccess) {
+                ShowAlert.customAlert("Success", "Order places successfully!", Alert.AlertType.INFORMATION);
+            } else {
+                ShowAlert.customAlert("Failed", "Failed to place the order!", Alert.AlertType.ERROR);
+            }
+        } catch (SQLException e) {
+            ShowAlert.databaseError();
+        }
     }
 
     @FXML

@@ -7,9 +7,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class OrderDetailControllerImpl implements OrderDetailController{
-    public boolean addOrderDetail(List<OrderProducts> orderProducts) {
+
+    private static OrderDetailControllerImpl instance;
+
+    private OrderDetailControllerImpl() {
+    }
+
+    public static OrderDetailControllerImpl getInstance() {
+        return instance == null ? instance = new OrderDetailControllerImpl() : instance;
+    }
+
+    public boolean addOrderProduct(List<OrderProducts> orderProducts) {
         for (OrderProducts orderProduct : orderProducts){
-            boolean isOrderDetailsAdded = addOrderDetail(orderProduct);
+            boolean isOrderDetailsAdded = addOrderProduct(orderProduct);
             if (!isOrderDetailsAdded){
                 return false;
             }
@@ -17,7 +27,7 @@ public class OrderDetailControllerImpl implements OrderDetailController{
         return true;
     }
 
-    public boolean addOrderDetail(OrderProducts orderProduct) {
+    public boolean addOrderProduct(OrderProducts orderProduct) {
         try {
             return CrudUtil.execute(
                     "INSERT INTO orderdetail VALUES(?, ?, ?, ?);",

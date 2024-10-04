@@ -1,6 +1,7 @@
 package model;
 
 import lombok.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,5 +14,7 @@ public class Order {
     private String id;
     private LocalDate date;
     private String custId;
+    private Double totDiscount;
+    private Double billTotal;
     private List<OrderProducts> orderProducts;
 }

@@ -5,6 +5,7 @@ import model.OrderProducts;
 import java.util.List;
 
 public interface OrderDetailController {
-    boolean addOrderDetail(List<OrderProducts> orderProducts);
-    boolean addOrderDetail(OrderProducts orderProduct);
+    boolean addOrderProduct(List<OrderProducts> orderProducts);
+
+    boolean addOrderProduct(OrderProducts orderProduct);
 }

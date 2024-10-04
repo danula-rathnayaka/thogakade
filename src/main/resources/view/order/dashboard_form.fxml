@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="810.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../../css/TableViewStyles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.OrderDashboardController">
    <children>
       <Label layoutX="61.0" layoutY="50.0" prefHeight="35.0" prefWidth="125.0" text="Orders" textFill="#6a6a6a">
@@ -72,12 +65,17 @@
       </Group>
       <TableView fx:id="tblOrderProducts" layoutX="717.0" layoutY="412.0" prefHeight="286.0" prefWidth="510.0" stylesheets="@../../css/TableViewStylesMini.css">
          <columns>
-            <TableColumn fx:id="colCode" prefWidth="60.79998779296875" style="-fx-font-size: 12;" text="ID" />
-            <TableColumn fx:id="colDescription" prefWidth="166.93328857421875" style="-fx-font-size: 12;" text="DESCRIPTION" />
-            <TableColumn fx:id="colPackSize" prefWidth="74.66668701171875" style="-fx-font-size: 12;" text="PACK SIZE" />
-            <TableColumn fx:id="colPrice" prefWidth="77.8665771484375" style="-fx-font-size: 12;" text="UNIT PRICE" />
-            <TableColumn fx:id="colQty" minWidth="6.39990234375" prefWidth="50.4000244140625" style="-fx-font-size: 12;" text="QTY" />
-            <TableColumn fx:id="colDiscount" prefWidth="75.199951171875" style="-fx-font-size: 12;" text="DISCOUNT" />
+             <TableColumn fx:id="colCode" prefWidth="33.60003662109375" style="-fx-font-size: 12;" text="ID"/>
+             <TableColumn fx:id="colDescription" prefWidth="102.39996337890625" style="-fx-font-size: 12;"
+                          text="DESCRIPTION"/>
+             <TableColumn fx:id="colPackSize" prefWidth="69.60003662109375" style="-fx-font-size: 12;"
+                          text="PACK SIZE"/>
+             <TableColumn fx:id="colPrice" prefWidth="72.79998779296875" style="-fx-font-size: 12;" text="UNIT PRICE"/>
+             <TableColumn fx:id="colQty" minWidth="6.39990234375" prefWidth="34.40008544921875"
+                          style="-fx-font-size: 12;" text="QTY"/>
+             <TableColumn fx:id="colNetTotal" prefWidth="70.4000244140625" style="-fx-font-size: 12;" text="NET TOTAL"/>
+             <TableColumn fx:id="colDiscount" prefWidth="68.0001220703125" style="-fx-font-size: 12;" text="DISCOUNT"/>
+             <TableColumn fx:id="colTotal" prefWidth="52.80002441406248" style="-fx-font-size: 12;" text="TOTAL"/>
          </columns>
       </TableView>
       <Label layoutX="725.0" layoutY="123.0" text="Customer Details" textFill="#6a6a6a">

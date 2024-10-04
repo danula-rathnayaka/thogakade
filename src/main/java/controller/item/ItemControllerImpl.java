@@ -2,17 +2,15 @@ package controller.item;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import model.Item;
 import model.OrderProducts;
 import util.CrudUtil;
 import util.ShowAlert;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 public class ItemControllerImpl implements ItemController{
 
@@ -120,8 +118,22 @@ public class ItemControllerImpl implements ItemController{
         }
     }
 
-    public boolean updateStock(OrderProducts orderProducts){
-//        CrudUtil.execute()
+    public boolean updateStock(List<OrderProducts> orderProducts) {
+        for (OrderProducts orderProduct : orderProducts) {
+            if (!updateStock(orderProduct)) {
+                return false;
+            }
+        }
         return true;
     }
+
+    public boolean updateStock(OrderProducts orderProduct) {
+        try {
+            return CrudUtil.execute("UPDATE item SET QtyOnHand=QtyOnHand-? WHERE ItemCode=?", orderProduct.getOrderQty(), orderProduct.getItemCode());
+        } catch (SQLException e) {
+            ShowAlert.databaseError();
+            return false;
+        }
+    }
+
 }

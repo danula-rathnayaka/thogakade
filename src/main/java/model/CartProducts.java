@@ -10,6 +10,7 @@ import lombok.*;
 public class CartProducts {
     private String itemCode;
     private String description;
+    private String packSize;
     private Integer orderQty;
     private Double unitPrice;
     private Double netTotal;
