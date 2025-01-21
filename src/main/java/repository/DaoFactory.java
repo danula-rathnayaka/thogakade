@@ -16,12 +16,12 @@ public class DaoFactory {
         return instance == null ? instance = new DaoFactory() : instance;
     }
 
-    private <T extends SuperDao> T getDaoType(DaoType type) {
-        return switch (type) {
-            case CUSTOMER -> (T) new CustomerDaoImpl();
-            case ITEM -> (T) new ItemDaoImpl();
-            case ORDER -> (T) new OrderDaoImpl();
-            case USER -> (T) new UserDaoImpl();
-        }
+    public <T extends SuperDao> T getDaoType(DaoType type) {
+        return (T) switch (type) {
+            case CUSTOMER -> CustomerDaoImpl.getInstance();
+            case ITEM -> ItemDaoImpl.getInstance();
+            case ORDER -> OrderDaoImpl.getInstance();
+            case USER -> new UserDaoImpl();
+        };
     }
 }

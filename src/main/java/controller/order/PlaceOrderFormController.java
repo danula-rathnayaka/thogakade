@@ -2,9 +2,7 @@ package controller.order;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import controller.customer.CustomerControllerImpl;
-import controller.item.ItemControllerImpl;
-import controller.user.UserControllerImpl;
+import dto.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +19,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.*;
+import service.ServiceFactory;
+import service.custom.CustomerService;
+import service.custom.ItemService;
+import service.custom.OrderService;
+import service.custom.UserService;
+import util.ServiceType;
 import util.ShowAlert;
 
 import java.io.IOException;
@@ -132,6 +135,11 @@ public class PlaceOrderFormController implements Initializable {
     @FXML
     private TextField txtProductSearch;
 
+    private final OrderService service = ServiceFactory.getInstance().getServiceType(ServiceType.ORDER);
+    private final CustomerService customerService = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
+    private final ItemService itemService = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+    private final UserService userService = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+
     private Customer customerSelected;
     private Item itemSelected;
     private ObservableList<CartProducts> cart = FXCollections.observableArrayList();
@@ -189,7 +197,7 @@ public class PlaceOrderFormController implements Initializable {
 
     @FXML
     void btnCustomerOkSearchOnAction(ActionEvent event) {
-        customerSelected = CustomerControllerImpl.getInstance().getCustomer(txtCustomerSearch.getText());
+        customerSelected = customerService.getCustomer(txtCustomerSearch.getText());
         if (customerSelected==null){
             ShowAlert.customAlert("No Item", "No item found for the given item code.", Alert.AlertType.ERROR);
         } else {
@@ -207,7 +215,7 @@ public class PlaceOrderFormController implements Initializable {
 
     @FXML
     void btnLogoutOnAction(ActionEvent event) {
-        UserControllerImpl.getInstance().updateLastLogout(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
+        userService.updateLastLogout(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
         try {
             Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login_form.fxml"))));
@@ -233,7 +241,7 @@ public class PlaceOrderFormController implements Initializable {
             );
         });
         try {
-            boolean transactionSuccess = OrderControllerImpl.getInstance().placeOrder(new Order(
+            boolean transactionSuccess = service.placeOrder(new Order(
                     orderId,
                     LocalDate.parse(lblDate.getText()),
                     lblCId.getText(),
@@ -253,7 +261,7 @@ public class PlaceOrderFormController implements Initializable {
 
     @FXML
     void btnProductsOkSearchOnAction(ActionEvent event) {
-        itemSelected = ItemControllerImpl.getInstance().getItem(txtProductSearch.getText());
+        itemSelected = itemService.getItem(txtProductSearch.getText());
         if (itemSelected==null){
             ShowAlert.customAlert("No Item", "No item found for the given item code.", Alert.AlertType.ERROR);
         }

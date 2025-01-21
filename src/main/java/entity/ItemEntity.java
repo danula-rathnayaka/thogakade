@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Item {
+public class ItemEntity {
     private String code;
     private String description;
     private String packSize;

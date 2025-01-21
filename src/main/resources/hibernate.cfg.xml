@@ -11,7 +11,7 @@
             com.mysql.cj.jdbc.Driver
         </property>
         <property name="connection.username">root</property>
-        <property name="connection.password">1234</property>
+        <property name="connection.password">12345</property>
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="show_sql">true</property>
 

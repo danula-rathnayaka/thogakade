@@ -1,13 +1,16 @@
-package model;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import util.Role;
+
 import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserEntity {
     private String id;
     private String username;
     private String name;
@@ -15,9 +18,4 @@ public class User {
     private Role role;
     private Timestamp lastLogin;
     private Timestamp lastLogout;
-
-    public enum Role {
-        MANAGER,
-        CASHIER
-    }
 }

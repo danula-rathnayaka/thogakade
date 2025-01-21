@@ -3,6 +3,7 @@ package controller.customer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dto.Customer;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,11 +12,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.Customer;
+import service.ServiceFactory;
+import service.custom.CustomerService;
+import util.ServiceType;
 import util.ShowAlert;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -59,6 +62,8 @@ public class CustomerDataController implements Initializable {
 
     private boolean isAdd = true;
 
+    private final CustomerService service = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
+
     @FXML
     void btnCancelOnAction(ActionEvent event) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -84,7 +89,7 @@ public class CustomerDataController implements Initializable {
         );
 
         try {
-            if (isAdd? CustomerControllerImpl.getInstance().addCustomer(customer) : CustomerControllerImpl.getInstance().updateCustomer(customer)) {
+            if (isAdd ? service.addCustomer(customer) : service.updateCustomer(customer)) {
                 ShowAlert.customAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {

@@ -1,5 +1,6 @@
-package model;
+package entity;
 
+import dto.OrderProducts;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Order {
+public class OrderEntity {
     private String id;
     private LocalDate date;
     private String custId;

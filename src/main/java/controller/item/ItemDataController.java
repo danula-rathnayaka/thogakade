@@ -2,13 +2,17 @@ package controller.item;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dto.Item;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.Item;
+import service.ServiceFactory;
+import service.custom.ItemService;
+import util.ServiceType;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 
@@ -39,6 +43,8 @@ public class ItemDataController {
     private JFXTextField txtQtnOnHand;
     private boolean isAdd = true;
 
+    private final ItemService service = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+
     @FXML
     void btnCancelOnAction(ActionEvent event) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -60,7 +66,7 @@ public class ItemDataController {
         Integer.parseInt(txtQtnOnHand.getText()));
 
         try {
-            if (isAdd? ItemControllerImpl.getInstance().addItem(item) : ItemControllerImpl.getInstance().editItem(item)) {
+            if (isAdd ? service.addItem(item) : service.editItem(item)) {
                 showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {

@@ -1,6 +1,7 @@
 package controller.user;
 
 import com.jfoenix.controls.JFXButton;
+import dto.User;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.User;
+import service.ServiceFactory;
+import service.custom.UserService;
+import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -69,6 +72,8 @@ public class UserDashboardFormController implements Initializable {
 
     private User selectedData;
 
+    private final UserService service = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+
     @FXML
     void btnAddOnAction(ActionEvent event) {
         loadUserDataForm(null);
@@ -103,7 +108,7 @@ public class UserDashboardFormController implements Initializable {
 
     private void deleteCustomer() {
         if(showConfirmationDialog("delete")){
-            if (UserControllerImpl.getInstance().deleteUser(selectedData.getId())) {
+            if (service.deleteUser(selectedData.getId())) {
                 showAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
                 loadData();
@@ -164,7 +169,7 @@ public class UserDashboardFormController implements Initializable {
     }
 
     private void loadData() {
-        userList = UserControllerImpl.getInstance().getAllUsers();
+        userList = service.getAllUsers();
         tblUsers.setItems(userList);
     }
 

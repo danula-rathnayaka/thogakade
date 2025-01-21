@@ -1,6 +1,7 @@
 package controller.customer;
 
 import com.jfoenix.controls.JFXButton;
+import dto.Customer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Customer;
+import service.ServiceFactory;
+import service.custom.CustomerService;
+import util.ServiceType;
 import util.ShowAlert;
 
 import java.io.IOException;
@@ -83,6 +86,8 @@ public class CustomerDashboardController implements Initializable {
 
     private Customer selectedData;
 
+    private final CustomerService service = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         deleteCustomer();
@@ -116,7 +121,7 @@ public class CustomerDashboardController implements Initializable {
                         selectedData.getProvince(),
                         selectedData.getPostalCode()))
         ){
-            if (CustomerControllerImpl.getInstance().deleteCustomer(selectedData.getId())) {
+            if (service.deleteCustomer(selectedData.getId())) {
                 ShowAlert.customAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
                 loadData();
@@ -208,7 +213,7 @@ public class CustomerDashboardController implements Initializable {
     }
 
     private void loadData(){
-        customerList = CustomerControllerImpl.getInstance().getAllCustomers();
+        customerList = service.getAllCustomers();
         tblCustomers.setItems(customerList);
     }
 }

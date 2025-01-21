@@ -1,6 +1,6 @@
 package util;
 
-import model.CustomerEntity;
+import entity.CustomerEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

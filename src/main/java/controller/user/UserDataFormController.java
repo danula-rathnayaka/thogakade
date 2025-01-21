@@ -3,7 +3,7 @@ package controller.user;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import controller.customer.CustomerControllerImpl;
+import dto.User;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import model.User;
+import service.ServiceFactory;
+import service.custom.UserService;
+import util.Role;
+import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -29,8 +32,7 @@ public class UserDataFormController implements Initializable {
     @FXML
     private JFXButton btnDone;
 
-    @FXML
-    private JFXComboBox<User.Role> cmbRole;
+    private final UserService service = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
 
     @FXML
     private Label lblTitle;
@@ -48,6 +50,8 @@ public class UserDataFormController implements Initializable {
     private JFXTextField txtUsername;
 
     private boolean isAdd = true;
+    @FXML
+    private JFXComboBox<Role> cmbRole;
 
     @FXML
     void btnCancelOnAction(ActionEvent event) {
@@ -72,12 +76,12 @@ public class UserDataFormController implements Initializable {
         );
 
         try {
-            if (isAdd? UserControllerImpl.getInstance().addUser(user) : UserControllerImpl.getInstance().updateUser(user)) {
+            if (isAdd ? service.addUser(user) : service.updateUser(user)) {
                 showAlert("Success", "Successfully updated the Database.\nPlease reload the table.", Alert.AlertType.INFORMATION);
 
                 if (isAdd) {
                     Arrays.asList(txtId, txtUsername, txtPassword, txtName).forEach(JFXTextField::clear);
-                    cmbRole.setValue(User.Role.CASHIER);
+                    cmbRole.setValue(Role.CASHIER);
                 } else {
                     Stage stage = (Stage) txtId.getScene().getWindow();
                     stage.close();
@@ -140,6 +144,6 @@ public class UserDataFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cmbRole.setItems(FXCollections.observableArrayList(User.Role.CASHIER, User.Role.MANAGER));
+        cmbRole.setItems(FXCollections.observableArrayList(Role.CASHIER, Role.MANAGER));
     }
 }

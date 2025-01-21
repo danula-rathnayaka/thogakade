@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import controller.MainDashboardFormController;
 import controller.order.PlaceOrderFormController;
+import dto.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.User;
+import service.ServiceFactory;
+import service.custom.UserService;
+import util.Role;
+import util.ServiceType;
 import util.ShowAlert;
 
 import java.io.IOException;
@@ -37,9 +41,11 @@ public class LoginFormController {
 
     private boolean showPassword = false;
 
+    private final UserService service = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+
     @FXML
     void btnLoginOnAction(ActionEvent event) {
-        User user = UserControllerImpl.getInstance().loginUser(txtUsername.getText(), showPassword? txtPassword.getText() : pwdPassword.getText());
+        User user = service.loginUser(txtUsername.getText(), showPassword ? txtPassword.getText() : pwdPassword.getText());
         if (user==null){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Incorrect Username or Password.", ButtonType.OK);
             alert.setTitle("Login Fail");
@@ -71,12 +77,12 @@ public class LoginFormController {
 
     private void loadUserForm(User user){
         try {
-            UserControllerImpl.getInstance().updateLastLogin(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
+            service.updateLastLogin(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(user.getRole() == User.Role.MANAGER? "/view/main_dashboard.fxml" : "/view/order/place_order_form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(user.getRole() == Role.MANAGER ? "/view/main_dashboard.fxml" : "/view/order/place_order_form.fxml"));
             Parent root = loader.load();
 
-            if (user.getRole() == User.Role.MANAGER) {
+            if (user.getRole() == Role.MANAGER) {
                 MainDashboardFormController controller = loader.getController();
                 controller.setUserData(user);
             } else {

@@ -1,4 +1,7 @@
 package repository.custom;
 
-public interface UserDao {
+import entity.UserEntity;
+import repository.CrudRepository;
+
+public interface UserDao extends CrudRepository<UserEntity> {
 }

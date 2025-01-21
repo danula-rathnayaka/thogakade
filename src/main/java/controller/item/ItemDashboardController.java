@@ -1,6 +1,7 @@
 package controller.item;
 
 import com.jfoenix.controls.JFXButton;
+import dto.Item;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Item;
+import service.ServiceFactory;
+import service.custom.ItemService;
+import util.ServiceType;
 import util.ShowAlert;
 
 import java.io.IOException;
@@ -59,6 +62,8 @@ public class ItemDashboardController implements Initializable {
     private ObservableList<Item> itemList;
     private Item selectedData;
 
+    private final ItemService service = ServiceFactory.getInstance().getServiceType(ServiceType.ITEM);
+
     @FXML
     void btnAddOnAction(ActionEvent event) {
         loadItemDataForm(null);
@@ -93,7 +98,7 @@ public class ItemDashboardController implements Initializable {
                 selectedData.getUnitPrice(),
                 selectedData.getQtnInHand()))
         ) {
-            if (ItemControllerImpl.getInstance().deleteItem(selectedData.getCode())) {
+            if (service.deleteItem(selectedData.getCode())) {
                 ShowAlert.customAlert("Success", "Deleted Successfully.", Alert.AlertType.INFORMATION);
 
                 loadData();
@@ -167,7 +172,7 @@ public class ItemDashboardController implements Initializable {
     }
 
     private void loadData() {
-        itemList = ItemControllerImpl.getInstance().getAllProducts();
+        itemList = service.getAllProducts();
         tblProducts.setItems(itemList);
     }
 
